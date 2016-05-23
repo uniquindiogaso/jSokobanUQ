@@ -1,0 +1,718 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package jSokoban;
+
+import jSokoban.Actores.Actor;
+import jSokoban.Actores.Caja;
+import jSokoban.Actores.Muro;
+import jSokoban.Actores.Avatar;
+import jSokoban.Actores.Objetivo;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
+import javax.swing.JPanel;
+import jSokoban.Assets.Elemento;
+
+public class Tablero extends JPanel {
+
+    //Constantes 
+    private final int MARGEN = 0;
+    public static int TAMANIO_ASSETS = 32;
+    private final int COLISION_IZQ = 1;
+    private final int COLISION_DER = 2;
+    private final int COLISION_ARRIBA = 3;
+    private final int COLISION_ABAJO = 4;
+
+    //Flag para identificar si el nivel ha sido completado
+    private boolean completo = false;
+    //Identificar si el usuario esta des/rehacer jugadas
+    private boolean cambioJugada;
+
+    //Tamaños Tablero
+    private int anchoTablero = 0;
+    private int altoTablero = 0;
+    //Definicion del nivel Actual
+    private int nivel;
+    //Manejo de Movimientos
+    private int movimientosTotales;
+    private int movimientoActual;
+
+    //Jugador
+    private Avatar avatar;
+
+    //Lista de Objetos Interfaz
+    private ArrayList muros = new ArrayList();
+    private ArrayList cajas = new ArrayList();
+    private ArrayList objetivos = new ArrayList();
+
+    //Lista de Movimientos Partida
+    private ArrayList<Movimiento> movimientos = new ArrayList<>();
+
+    //Clase controladora para manipular tablero de Juego
+    private TableroControlador tablero;
+
+    //fuente empleada para mostrar que ha ganado
+    private Font fuente;
+
+    public Tablero() {
+        addKeyListener(new TAdapter());
+        setFocusable(true);
+        iniciarMundo();
+    }
+
+    public int getAnchoTablero() {
+        return this.anchoTablero;
+    }
+
+    public int getAltoTablero() {
+        return this.altoTablero;
+    }
+
+    public final void iniciarMundo() {
+        //Iniciar Imagenes
+        Assets.init();
+
+        //Construir Tablero
+        tablero = new TableroControlador(nivel);
+
+        Character[][] matriz = tablero.getMatrizJuego();
+
+        //Iniciar Fuente para Programa
+        fuente = new Font("Courier", Font.BOLD, 36);
+
+        //Guardar movimiento actual
+        movimientos.add(new Movimiento(tablero.matrizToString(), 0));
+
+        int x = MARGEN;
+        int y = MARGEN;
+
+        Muro muro;
+        Caja caja;
+        Objetivo objetivo;
+
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                if (matriz[i][j] == 'M') {
+                    muro = new Muro(x, y);
+                    muros.add(muro);
+                    x += TAMANIO_ASSETS;
+                } else if (matriz[i][j] == 'C') {
+                    caja = new Caja(x, y);
+                    cajas.add(caja);
+                    x += TAMANIO_ASSETS;
+                } else if (matriz[i][j] == 'D') {
+                    objetivo = new Objetivo(x, y);
+                    objetivos.add(objetivo);
+                    x += TAMANIO_ASSETS;
+                } else if (matriz[i][j] == 'A') {
+                    avatar = new Avatar(x, y);
+                    x += TAMANIO_ASSETS;
+                } else if (matriz[i][j] == 'V') {
+                    x += TAMANIO_ASSETS;
+                }
+
+            }
+
+            y += TAMANIO_ASSETS;
+            if (this.anchoTablero < x) {
+                this.anchoTablero = x;
+            }
+
+            x = MARGEN;
+
+            altoTablero = y;
+        }
+
+    }
+
+    public final void iniciarMundo(String mapa) {
+        //Iniciar Imagenes
+        Assets.init();
+
+        int x = MARGEN;
+        int y = MARGEN;
+
+        Muro muro;
+        Caja caja;
+        Objetivo objetivo;
+
+        for (int i = 0; i < mapa.length(); i++) {
+
+            char elementoTablero = mapa.charAt(i);
+
+            if (elementoTablero == '\n') {
+                y += TAMANIO_ASSETS;
+                if (this.anchoTablero < x) {
+                    this.anchoTablero = x;
+                }
+                x = MARGEN;
+            } else if (elementoTablero == 'M') {
+                muro = new Muro(x, y);
+                muros.add(muro);
+                x += TAMANIO_ASSETS;
+            } else if (elementoTablero == 'C') {
+                caja = new Caja(x, y);
+                cajas.add(caja);
+                x += TAMANIO_ASSETS;
+            } else if (elementoTablero == 'D') {
+                objetivo = new Objetivo(x, y);
+                objetivos.add(objetivo);
+                x += TAMANIO_ASSETS;
+            } else if (elementoTablero == 'A') {
+                avatar = new Avatar(x, y);
+                x += TAMANIO_ASSETS;
+            } else if (elementoTablero == '*') {
+                objetivo = new Objetivo(x, y);
+                objetivos.add(objetivo);
+                caja = new Caja(x, y);
+                cajas.add(caja);
+                x += TAMANIO_ASSETS;
+
+            } else if (elementoTablero == '*') {
+                objetivo = new Objetivo(x, y);
+                objetivos.add(objetivo);
+                avatar = new Avatar(x, y);
+                x += TAMANIO_ASSETS;
+            } else if (elementoTablero == 'V') {
+                x += TAMANIO_ASSETS;
+            }
+
+            altoTablero = y;
+        }
+
+    }
+
+    public void construirMundo(Graphics g) {
+
+        g.setColor(new Color(101, 159, 62));
+        g.fillRect(0, 0, this.getWidth(), this.getHeight());
+
+        //Todos los elementos involucrados dentro del tablero de juego (cargados desde el nivel)
+        ArrayList mundo = new ArrayList();
+        mundo.addAll(muros);
+        mundo.addAll(objetivos);
+        mundo.addAll(cajas);
+        mundo.add(avatar);
+
+        for (int i = 0; i < mundo.size(); i++) {
+
+            Actor elemento = (Actor) mundo.get(i);
+            g.drawImage(elemento.getImagen(), elemento.getX(), elemento.getY(), TAMANIO_ASSETS, TAMANIO_ASSETS, this);
+
+            //Si se ha completado todas las cajas
+            if (completo) {
+                //@TODO Se siente lag cuando se pone una fuente al G
+                //g.setFont(fuente);
+                int xCenter = (getWidth() / 2) - 64;
+                int yCenter = ((getHeight()) / 2) + 37;
+
+                g.setColor(new Color(0, 0, 0));
+                g.drawString("¡Nivel Completo!", xCenter, yCenter);
+
+            }
+
+        }
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        construirMundo(g);
+    }
+
+    public int getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
+    }
+
+    public boolean isCambiarPaso() {
+        return cambioJugada;
+    }
+
+    public void setCambiarPaso(boolean cambiarPaso) {
+        this.cambioJugada = cambiarPaso;
+    }
+
+    /**
+     * Adaptador de Teclado que vigila movimientos validos
+     */
+    class TAdapter extends KeyAdapter {
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+
+            //Desactivar escucha de movimientos si el juego ha terminado
+            if (completo) {
+                return;
+            }
+
+            int tecla = e.getKeyCode();
+
+            //verificar si existe movimiento valido para actualizar matriz           
+            int xAnterior = -1;
+            int yAnterior = -1;
+
+            if (tecla == KeyEvent.VK_LEFT) {
+                avatar.setImagen(Assets.imgAvatarIzquierda);
+                if (verificarColisionMuro(avatar,
+                        COLISION_IZQ)) {
+                    return;
+                }
+
+                if (verificarColisionCaja(COLISION_IZQ)) {
+                    return;
+                }
+                //Guardar Posicion Anterior a Movimiento
+                xAnterior = avatar.getX();
+                yAnterior = avatar.getY();
+
+                avatar.mover(-TAMANIO_ASSETS, 0);
+
+            } else if (tecla == KeyEvent.VK_RIGHT) {
+                avatar.setImagen(Assets.imgAvatarDerecha);
+                if (verificarColisionMuro(avatar,
+                        COLISION_DER)) {
+                    return;
+                }
+
+                if (verificarColisionCaja(COLISION_DER)) {
+                    return;
+                }
+
+                //Guardar Posicion Anterior a Movimiento
+                xAnterior = avatar.getX();
+                yAnterior = avatar.getY();
+
+                avatar.mover(TAMANIO_ASSETS, 0);
+
+            } else if (tecla == KeyEvent.VK_UP) {
+                avatar.setImagen(Assets.imgAvatarArriba);
+                if (verificarColisionMuro(avatar,
+                        COLISION_ARRIBA)) {
+                    return;
+                }
+
+                if (verificarColisionCaja(COLISION_ARRIBA)) {
+                    return;
+                }
+
+                //Guardar Posicion Anterior a Movimiento
+                xAnterior = avatar.getX();
+                yAnterior = avatar.getY();
+
+                avatar.mover(0, -TAMANIO_ASSETS);
+
+            } else if (tecla == KeyEvent.VK_DOWN) {
+                avatar.setImagen(Assets.imgAvatarFrente);
+                if (verificarColisionMuro(avatar,
+                        COLISION_ABAJO)) {
+                    return;
+                }
+
+                if (verificarColisionCaja(COLISION_ABAJO)) {
+                    return;
+                }
+
+                //Guardar Posicion Anterior a Movimiento
+                xAnterior = avatar.getX();
+                yAnterior = avatar.getY();
+
+                avatar.mover(0, TAMANIO_ASSETS);
+
+            } else if (tecla == KeyEvent.VK_R) {
+                reiniciarNivel();
+            }
+
+            repaint();
+
+            //Si se realizo un movimiento Valido - Proceder a Actualizar informacion de juego
+            if (xAnterior != -1 && yAnterior != -1) {
+
+                //Si durante la accion de des/rehacer el usuario realiza un movimiento nuevo; borrar los movimientos no validos
+                if (cambioJugada) {
+                    //Elimine los movimientos anteriores al movimiento actual
+                    borrarMovimientos();
+                    cambioJugada = false;
+                } else {
+
+                }
+
+                tablero.actualizarMatriz(xAnterior, yAnterior, avatar.getX(), avatar.getY(), 'A');
+                guardarMovimiento();
+
+            }
+
+            //matriz();
+        }
+    }
+
+    /**
+     * Guarda en el historia de movimientos la jugada realizada
+     */
+    private void guardarMovimiento() {
+        movimientos.add(new Movimiento(tablero.matrizToString(), 0));
+        movimientosTotales = movimientos.size() - 1;
+        movimientoActual = movimientosTotales;
+    }
+
+    /**
+     * Al interrumpir el des/rehacer se deben de borrar las jugadas ya no
+     * validas.
+     */
+    private void borrarMovimientos() {
+        //IMPORTANTE - se eliminan las jugadas descendentemente u_u
+        for (int i = movimientos.size() - 1; i > movimientoActual; i--) {
+            movimientos.remove(i);
+        }
+    }
+
+    /**
+     * Controlar la accion de res/hacer movimiento
+     *
+     * @param m - si es positivo se rehacen el movimiento - negativo se deshace
+     * la jugada
+     */
+    public void reconstruirMovimiento(int m) {
+
+        cambioJugada = true;
+
+        if (m < 0) { //Deshacer Jugada
+            if (movimientoActual >= 0) {
+
+                if (movimientoActual > 0) {
+                    cargarNivel(movimientos.get(movimientoActual - 1).getTablero());
+                    //Actualizar Tablero con movimientos realizados
+                    tablero.setMatrizJuego(tablero.toMatriz(movimientos.get(movimientoActual - 1).getTablero()));
+                }
+                movimientoActual--;
+
+                repaint();
+            }
+
+        } else { //rehacer jugada
+            if (movimientoActual <= movimientos.size()) {
+                if (movimientoActual < movimientos.size() - 1) {
+                    cargarNivel(movimientos.get(movimientoActual + 1).getTablero());
+                    tablero.setMatrizJuego(tablero.toMatriz(movimientos.get(movimientoActual + 1).getTablero()));
+
+                    movimientoActual++;
+                    repaint();
+
+                }
+
+            }
+
+        }
+
+    }
+
+    private boolean verificarColisionMuro(Actor actor, int tipo) {
+
+        if (tipo == COLISION_IZQ) {
+
+            for (int i = 0; i < muros.size(); i++) {
+                Muro muro = (Muro) muros.get(i);
+                if (actor.colisionIzquierda(muro)) {
+                    return true;
+                }
+            }
+            return false;
+
+        } else if (tipo == COLISION_DER) {
+
+            for (int i = 0; i < muros.size(); i++) {
+                Muro muro = (Muro) muros.get(i);
+                if (actor.colisionDerecha(muro)) {
+                    return true;
+                }
+            }
+            return false;
+
+        } else if (tipo == COLISION_ARRIBA) {
+
+            for (int i = 0; i < muros.size(); i++) {
+                Muro muro = (Muro) muros.get(i);
+                if (actor.colisionArriba(muro)) {
+                    return true;
+                }
+            }
+            return false;
+
+        } else if (tipo == COLISION_ABAJO) {
+
+            for (int i = 0; i < muros.size(); i++) {
+                Muro muro = (Muro) muros.get(i);
+                if (actor.colisionAbajo(muro)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        return false;
+    }
+
+    private boolean verificarColisionCaja(int type) {
+
+        //Comprobar Movimiento Anterior
+        int xAnterior = -1;
+        int yAnterior = -1;
+        //Al ser un Array - guardar la posicion Nueva
+        int xNueva = -1;
+        int yNueva = -1;
+
+        if (type == COLISION_IZQ) {
+
+            for (int i = 0; i < cajas.size(); i++) {
+
+                Caja caja = (Caja) cajas.get(i);
+                if (avatar.colisionIzquierda(caja)) {
+
+                    for (int j = 0; j < cajas.size(); j++) {
+                        Caja otraCaja = (Caja) cajas.get(j);
+                        if (!caja.equals(otraCaja)) {
+                            if (caja.colisionIzquierda(otraCaja)) {
+                                return true;
+                            }
+                        }
+                        if (verificarColisionMuro(caja,
+                                COLISION_IZQ)) {
+                            return true;
+                        }
+                    }
+                    xAnterior = caja.getX();
+                    yAnterior = caja.getY();
+
+                    caja.mover(-TAMANIO_ASSETS, 0);
+
+                    xNueva = caja.getX();
+                    yNueva = caja.getY();
+
+                    hayGanador();
+                }
+            }
+
+            comprobarMovimientoCaja(xAnterior, yAnterior, xNueva, yNueva);
+            return false;
+
+        } else if (type == COLISION_DER) {
+
+            for (int i = 0; i < cajas.size(); i++) {
+
+                Caja caja = (Caja) cajas.get(i);
+                if (avatar.colisionDerecha(caja)) {
+                    for (int j = 0; j < cajas.size(); j++) {
+
+                        Caja item = (Caja) cajas.get(j);
+                        if (!caja.equals(item)) {
+                            if (caja.colisionDerecha(item)) {
+                                return true;
+                            }
+                        }
+                        if (verificarColisionMuro(caja,
+                                COLISION_DER)) {
+                            return true;
+                        }
+                    }
+
+                    xAnterior = caja.getX();
+                    yAnterior = caja.getY();
+
+                    caja.mover(TAMANIO_ASSETS, 0);
+
+                    xNueva = caja.getX();
+                    yNueva = caja.getY();
+                    hayGanador();
+                }
+            }
+
+            comprobarMovimientoCaja(xAnterior, yAnterior, xNueva, yNueva);
+            return false;
+
+        } else if (type == COLISION_ARRIBA) {
+
+            for (int i = 0; i < cajas.size(); i++) {
+
+                Caja caja = (Caja) cajas.get(i);
+                if (avatar.colisionArriba(caja)) {
+                    for (int j = 0; j < cajas.size(); j++) {
+
+                        Caja item = (Caja) cajas.get(j);
+                        if (!caja.equals(item)) {
+                            if (caja.colisionArriba(item)) {
+                                return true;
+                            }
+                        }
+                        if (verificarColisionMuro(caja,
+                                COLISION_ARRIBA)) {
+                            return true;
+                        }
+                    }
+                    xAnterior = caja.getX();
+                    yAnterior = caja.getY();
+
+                    caja.mover(0, -TAMANIO_ASSETS);
+
+                    xNueva = caja.getX();
+                    yNueva = caja.getY();
+
+                    hayGanador();
+                }
+            }
+
+            comprobarMovimientoCaja(xAnterior, yAnterior, xNueva, yNueva);
+            return false;
+
+        } else if (type == COLISION_ABAJO) {
+
+            for (int i = 0; i < cajas.size(); i++) {
+
+                Caja caja = (Caja) cajas.get(i);
+                if (avatar.colisionAbajo(caja)) {
+                    for (int j = 0; j < cajas.size(); j++) {
+
+                        Caja item = (Caja) cajas.get(j);
+                        if (!caja.equals(item)) {
+                            if (caja.colisionAbajo(item)) {
+                                return true;
+                            }
+                        }
+                        if (verificarColisionMuro(caja,
+                                COLISION_ABAJO)) {
+                            return true;
+                        }
+                    }
+                    xAnterior = caja.getX();
+                    yAnterior = caja.getY();
+
+                    caja.mover(0, TAMANIO_ASSETS);
+
+                    xNueva = caja.getX();
+                    yNueva = caja.getY();
+
+                    hayGanador();
+                }
+            }
+        }
+
+        comprobarMovimientoCaja(xAnterior, yAnterior, xNueva, yNueva);
+
+        return false;
+    }
+
+    /**
+     * Comprobar si ya se han colocado todas las cajas en su sitio
+     */
+    public void hayGanador() {
+
+        int num = cajas.size();
+        //cajas organizadas
+        int completadas = 0;
+
+        for (int i = 0; i < num; i++) {
+            Caja caja = (Caja) cajas.get(i);
+            for (int j = 0; j < num; j++) {
+                Objetivo objetivo = (Objetivo) objetivos.get(j);
+                if (caja.getX() == objetivo.getX()
+                        && caja.getY() == objetivo.getY()) {
+                    completadas += 1;
+                }
+            }
+        }
+
+        if (completadas == num) {
+            completo = true;
+            repaint();
+        }
+    }
+
+    public void reiniciarNivel() {
+        movimientoActual = movimientosTotales = 0;
+        movimientos.clear();
+        objetivos.clear();
+        cajas.clear();
+        muros.clear();
+        iniciarMundo();
+        if (completo) {
+            completo = false;
+        }
+    }
+
+    /**
+     * Empleado para controlar los elementos de rehacer jugadas y deshacer
+     * jugadas asi como para cargar una partida guardada.
+     *
+     * @param mapa
+     */
+    public void cargarNivel(String mapa) {
+        objetivos.clear();
+        cajas.clear();
+        muros.clear();
+        iniciarMundo(mapa);
+        if (completo) {
+            completo = false;
+        }
+    }
+
+    /**
+     * @deprecated
+     */
+    private void matriz() {
+        Character[][] matrizJuego = tablero.getMatrizJuego();
+
+        for (int i = 0; i < matrizJuego.length; i++) {
+            for (int j = 0; j < matrizJuego[i].length; j++) {
+                System.out.print(matrizJuego[i][j] + ",");
+            }
+            System.out.println("");
+        }
+
+        System.out.println("");
+    }
+
+    /**
+     * @deprecated
+     */
+    public void iMovimientos() {
+        for (int i = 0; i < movimientos.size(); i++) {
+            System.out.println(i + "<- \n" + movimientos.get(i).getTablero());
+        }
+
+        System.out.println("Movimientos " + movimientos.size());
+        System.out.println("Posicion Avatar x " + avatar.getX() + " y " + avatar.getY());
+        System.out.println("Posicion Actual " + movimientoActual);
+    }
+
+    /**
+     * Comprobar si Existio algun movimiento de la Caja para actualizar la
+     * Matriz de Elementos en funcion del movimiento de la caja dentro del
+     * tablero
+     *
+     * @param xAnterior
+     * @param yAnterior
+     * @param xNueva
+     * @param yNueva
+     */
+    public void comprobarMovimientoCaja(int xAnterior, int yAnterior, int xNueva, int yNueva) {
+        if (xAnterior != -1 && yAnterior != -1) {
+            for (int i = 0; i < cajas.size(); i++) {
+                Caja caja = (Caja) cajas.get(i);
+                if (caja.getX() == xNueva && caja.getY() == yNueva) {
+                    tablero.actualizarMatriz(xAnterior, yAnterior, xNueva, yNueva, 'C');
+                }
+            }
+        }
+    }
+}
