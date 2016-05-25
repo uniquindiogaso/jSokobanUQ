@@ -64,10 +64,17 @@ public class Tablero extends JPanel {
     //fuente empleada para mostrar que ha ganado
     private Font fuente;
 
-    public Tablero() {
+    public Tablero(int nivel) {
         addKeyListener(new TAdapter());
         setFocusable(true);
+        this.nivel = nivel;
         iniciarMundo();
+    }
+    
+    public Tablero(String mapa) {
+        addKeyListener(new TAdapter());
+        setFocusable(true);
+        iniciarMundo(mapa);
     }
 
     public int getAnchoTablero() {

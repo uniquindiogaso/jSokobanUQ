@@ -13,9 +13,12 @@ public class TableroControlador {
     public char MURO = 'M';
     public char AVATAR = 'A';
     public char VACIO = 'V';
-    private final String PATH_MAPAS = System.getProperty("user.dir") + java.io.File.separator + "Mapas" + java.io.File.separator;
+    
+    
+    public static String PATH_MAPAS = System.getProperty("user.dir") + java.io.File.separator + "Mapas" + java.io.File.separator;
+    public static String PATH_PARTIDAS = System.getProperty("user.dir") + java.io.File.separator + "Partidas" + java.io.File.separator;
 
-    private String SEPARADOR = ",";
+    public static String SEPARADOR = ",";
 
     private int xMin;
     private int xMax;

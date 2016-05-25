@@ -22,7 +22,7 @@ public class Zetcode extends JFrame {
     
 
     public void InitUI() {
-        Tablero board = new Tablero();
+        Tablero board = new Tablero(1);
         add(board);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

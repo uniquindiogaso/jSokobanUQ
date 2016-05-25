@@ -15,20 +15,37 @@ import jSokoban.Tablero;
  */
 public class Partida extends javax.swing.JFrame {
 
-    Tablero board = new Tablero();
-    
-    public Partida() {
+    Tablero board;
+
+
+    public Partida(int nivel) {
         initComponents();
-                
-        add(board);
+        setLocationRelativeTo(null);
         
-        board.setBounds(10, 60, board.getAnchoTablero(),  board.getAltoTablero());
+        board = new Tablero(nivel);
+        add(board);
+
+        board.setBounds(10, 60, board.getAnchoTablero(), board.getAltoTablero());
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(board.getAnchoTablero() + 35,
                 board.getAltoTablero() + 3 * 35);
+
+    }
+    
+    public Partida(String mapa) {
+        initComponents();
         setLocationRelativeTo(null);
         
+        board = new Tablero(mapa);
+        add(board);
+
+        board.setBounds(10, 60, board.getAnchoTablero(), board.getAltoTablero());
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(board.getAnchoTablero() + 35,
+                board.getAltoTablero() + 3 * 35);
+
     }
 
     /**
@@ -126,8 +143,8 @@ public class Partida extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bRehacer4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bRehacer4MouseClicked
-       board.reiniciarNivel();
-       board.repaint();
+        board.reiniciarNivel();
+        board.repaint();
     }//GEN-LAST:event_bRehacer4MouseClicked
 
     private void bDeshacerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bDeshacerMouseClicked
@@ -135,11 +152,11 @@ public class Partida extends javax.swing.JFrame {
     }//GEN-LAST:event_bDeshacerMouseClicked
 
     private void bRehacerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bRehacerMouseClicked
-         board.reconstruirMovimiento(1);
+        board.reconstruirMovimiento(1);
     }//GEN-LAST:event_bRehacerMouseClicked
 
     private void bRehacer2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bRehacer2MouseClicked
-      board.iMovimientos();
+        board.iMovimientos();
     }//GEN-LAST:event_bRehacer2MouseClicked
 
     /**
@@ -172,7 +189,7 @@ public class Partida extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Partida().setVisible(true);
+                new Partida(1).setVisible(true);
             }
         });
     }

@@ -5,17 +5,39 @@
  */
 package jSokoban.Gui;
 
+import jSokoban.Actores.Actores;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
 /**
  *
  * @author gusta
  */
 public class Principal extends javax.swing.JFrame {
 
+    private JLabel imagenFondo;
+
     /**
      * Creates new form Principal
      */
     public Principal() {
         initComponents();
+        setResizable(false);
+        setSize(728, 645);
+        asignarFondo();
+        
+
+    }
+
+    /**
+     * Configurar Imagen de Fondo Ventana
+     */
+    private void asignarFondo() {
+        //setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("../Imagenes/Menu/Principal1.png"))));
+        imagenFondo = new JLabel();
+        imagenFondo.setIcon(new ImageIcon(Principal.class.getResource("../Imagenes/Menu/Principal1.png")));
+        imagenFondo.setSize(getSize());
+        add(imagenFondo);
     }
 
     /**
@@ -28,8 +50,14 @@ public class Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
 
         jButton1.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         jButton1.setText("Iniciar Nivel");
@@ -38,29 +66,39 @@ public class Principal extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(288, 11, 156, 42);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(121, 121, 121)
-                .addComponent(jButton1)
-                .addContainerGap(123, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(120, 120, 120)
-                .addComponent(jButton1)
-                .addContainerGap(138, Short.MAX_VALUE))
-        );
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
+        jLabel1.setText("Salir");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(331, 509, 76, 45);
+
+        jLabel2.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
+        jLabel2.setText("Jugar");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(316, 133, 98, 45);
+
+        jLabel3.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
+        jLabel3.setText("Mapas");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(308, 213, 116, 45);
+
+        jLabel4.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
+        jLabel4.setText("Puntajes");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(285, 362, 150, 45);
+
+        jLabel5.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
+        jLabel5.setText("Creditos");
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(297, 436, 147, 45);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Partida partida = new Partida();
+        Partida partida = new Partida(1);
         partida.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -101,5 +139,10 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
 }

@@ -82,7 +82,7 @@
           <Color blue="0" green="0" id="red" palette="1" red="ff" type="palette"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/zetcode/Imagenes/Menu/anterior.png"/>
+          <Image iconType="3" name="/jSokoban/Imagenes/Menu/anterior.png"/>
         </Property>
       </Properties>
       <Events>
@@ -106,7 +106,7 @@
           <Color blue="0" green="0" id="red" palette="1" red="ff" type="palette"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/zetcode/Imagenes/Menu/siguiente.png"/>
+          <Image iconType="3" name="/jSokoban/Imagenes/Menu/siguiente.png"/>
         </Property>
       </Properties>
       <Events>
@@ -130,7 +130,7 @@
           <Color blue="0" green="0" id="red" palette="1" red="ff" type="palette"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/zetcode/Imagenes/Menu/guru.png"/>
+          <Image iconType="3" name="/jSokoban/Imagenes/Menu/guru.png"/>
         </Property>
       </Properties>
       <Constraints>
@@ -151,7 +151,7 @@
           <Color blue="0" green="0" id="red" palette="1" red="ff" type="palette"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/zetcode/Imagenes/Menu/restart.png"/>
+          <Image iconType="3" name="/jSokoban/Imagenes/Menu/restart.png"/>
         </Property>
       </Properties>
       <Events>
