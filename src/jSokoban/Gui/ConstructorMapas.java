@@ -91,7 +91,7 @@ public class ConstructorMapas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        bComprobarMapa = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         bPared = new javax.swing.JToggleButton();
         bAvatar = new javax.swing.JToggleButton();
@@ -99,6 +99,7 @@ public class ConstructorMapas extends javax.swing.JFrame {
         bDestino = new javax.swing.JToggleButton();
         bBorrar = new javax.swing.JToggleButton();
         lMensaje = new javax.swing.JLabel();
+        bGuardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addMouseListener(new java.awt.event.MouseAdapter() {
@@ -107,11 +108,11 @@ public class ConstructorMapas extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Constructor/guardar.png"))); // NOI18N
-        jButton1.setToolTipText("Guardar Tablero");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        bComprobarMapa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Constructor/verificar.png"))); // NOI18N
+        bComprobarMapa.setToolTipText("Comprobar si el mapa tiene solucion");
+        bComprobarMapa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                bComprobarMapaActionPerformed(evt);
             }
         });
 
@@ -156,6 +157,14 @@ public class ConstructorMapas extends javax.swing.JFrame {
 
         lMensaje.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
+        bGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Constructor/guardar.png"))); // NOI18N
+        bGuardar.setToolTipText("Guardar Tablero");
+        bGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bGuardarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -175,7 +184,9 @@ public class ConstructorMapas extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bBorrar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
+                        .addComponent(bComprobarMapa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bGuardar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -184,14 +195,16 @@ public class ConstructorMapas extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1)
-                    .addComponent(bAvatar)
-                    .addComponent(bCaja)
-                    .addComponent(bDestino)
-                    .addComponent(bBorrar, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bPared))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(bComprobarMapa)
+                        .addComponent(bAvatar)
+                        .addComponent(bCaja)
+                        .addComponent(bDestino)
+                        .addComponent(bBorrar, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(lMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bPared))
+                    .addComponent(bGuardar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(522, Short.MAX_VALUE))
@@ -200,14 +213,10 @@ public class ConstructorMapas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (guardarMapa()) {
-            guardado = true;
-            lMensaje.setText("Mapa guardado correctamente.");
-        }
+    private void bComprobarMapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bComprobarMapaActionPerformed
+        //Llamado del metodo que comprueba si hay solucion al mapa
 
-
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_bComprobarMapaActionPerformed
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         Point locationOnScreen = evt.getPoint();
@@ -273,6 +282,13 @@ public class ConstructorMapas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bBorrarActionPerformed
 
+    private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
+        if (guardarMapa()) {
+            guardado = true;
+            lMensaje.setText("Mapa guardado correctamente.");
+        }
+    }//GEN-LAST:event_bGuardarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -313,9 +329,10 @@ public class ConstructorMapas extends javax.swing.JFrame {
     private javax.swing.JToggleButton bAvatar;
     private javax.swing.JToggleButton bBorrar;
     private javax.swing.JToggleButton bCaja;
+    private javax.swing.JButton bComprobarMapa;
     private javax.swing.JToggleButton bDestino;
+    private javax.swing.JButton bGuardar;
     private javax.swing.JToggleButton bPared;
-    private javax.swing.JButton jButton1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lMensaje;
     // End of variables declaration//GEN-END:variables
@@ -326,15 +343,14 @@ public class ConstructorMapas extends javax.swing.JFrame {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        
-        
+
     }
 
     private void borrarObjeto(Graphics2D g2) {
         try {
             matrizLienzo[posMJ][posMI] = null;
             g2.clearRect((posMI * 25) + 20, (posMJ * 25) + 75, 25, 25);
-        }catch (java.lang.ArrayIndexOutOfBoundsException e) {
+        } catch (java.lang.ArrayIndexOutOfBoundsException e) {
             Logger.getLogger(ConstructorMapas.class.getName()).log(Level.WARNING, "No se puede borrar elemento en esta posicion (Fuera del Lienzo)");
         }
 

@@ -41,7 +41,9 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="bBorrar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="bComprobarMapa" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="bGuardar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lMensaje" max="32767" attributes="0"/>
                   </Group>
@@ -54,14 +56,17 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jButton1" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="bAvatar" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="bCaja" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="bDestino" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="bBorrar" alignment="1" min="-2" max="-2" attributes="0"/>
-                  <Component id="lMensaje" alignment="0" max="32767" attributes="0"/>
-                  <Component id="bPared" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="bComprobarMapa" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="bAvatar" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="bCaja" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="bDestino" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="bBorrar" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="lMensaje" alignment="0" max="32767" attributes="0"/>
+                      <Component id="bPared" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="bGuardar" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
@@ -71,15 +76,15 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="bComprobarMapa">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/jSokoban/Imagenes/Constructor/guardar.png"/>
+          <Image iconType="3" name="/jSokoban/Imagenes/Constructor/verificar.png"/>
         </Property>
-        <Property name="toolTipText" type="java.lang.String" value="Guardar Tablero"/>
+        <Property name="toolTipText" type="java.lang.String" value="Comprobar si el mapa tiene solucion"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bComprobarMapaActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator1">
@@ -144,6 +149,17 @@
           <Font name="Dialog" size="14" style="1"/>
         </Property>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="bGuardar">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/jSokoban/Imagenes/Constructor/guardar.png"/>
+        </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Guardar Tablero"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bGuardarActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
