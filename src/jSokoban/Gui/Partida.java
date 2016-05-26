@@ -62,29 +62,20 @@ public class Partida extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         bRehacer2 = new javax.swing.JLabel();
         bDeshacer = new javax.swing.JLabel();
         bRehacer = new javax.swing.JLabel();
         bRehacer3 = new javax.swing.JLabel();
         bRehacer4 = new javax.swing.JLabel();
-        bRehacer5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 51, 51));
         getContentPane().setLayout(null);
 
-        jLabel1.setBackground(new java.awt.Color(51, 51, 51));
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel1.setText("Puntaje: NN");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(310, 10, 140, 16);
-
         bRehacer2.setBackground(new java.awt.Color(51, 51, 51));
         bRehacer2.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         bRehacer2.setForeground(java.awt.Color.red);
+        bRehacer2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Constructor/guardar.png"))); // NOI18N
         bRehacer2.setText("G");
         bRehacer2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -141,13 +132,6 @@ public class Partida extends javax.swing.JFrame {
         });
         getContentPane().add(bRehacer4);
         bRehacer4.setBounds(190, 0, 40, 40);
-
-        bRehacer5.setBackground(new java.awt.Color(51, 51, 51));
-        bRehacer5.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        bRehacer5.setForeground(java.awt.Color.red);
-        bRehacer5.setText("G");
-        getContentPane().add(bRehacer5);
-        bRehacer5.setBounds(250, 10, 30, 32);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -214,7 +198,5 @@ public class Partida extends javax.swing.JFrame {
     private javax.swing.JLabel bRehacer2;
     private javax.swing.JLabel bRehacer3;
     private javax.swing.JLabel bRehacer4;
-    private javax.swing.JLabel bRehacer5;
-    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

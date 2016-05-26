@@ -21,8 +21,8 @@ import javax.swing.JOptionPane;
 public class PrepararPartida extends javax.swing.JFrame {
 
     Partida ventanaJuego;
-     private JLabel imagenFondo;
-     
+    private JLabel imagenFondo;
+
     /**
      * Creates new form PrepararPartida
      */
@@ -170,16 +170,22 @@ public class PrepararPartida extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public boolean cargarNuevaPartida() {
-        return cargarNivel(1);
+        int numPartida = GestionMapas.obtenerNumeroMapa(0);
+
+        if (numPartida != -1) {
+            return cargarNivel(numPartida);
+        }
+        return false;
+
     }
 
     public boolean cargarMapaAleatorio() {
         Random rng = new Random();
         Integer mapaAleatorio;
         try {
-            mapaAleatorio = rng.nextInt(GestionMapas.numMapas()) + 1;
+            mapaAleatorio = rng.nextInt(GestionMapas.numMapas());
             System.out.println("Aleatorio? = " + mapaAleatorio);
-            return cargarNivel(mapaAleatorio);
+            return cargarNivel(GestionMapas.obtenerNumeroMapa(mapaAleatorio));            
         } catch (Exception e) {
             Logger.getLogger(PrepararPartida.class.getName()).log(Level.SEVERE, "No se logro identificar un mapa aleatorio valido");
             return cargarNivel(1);
@@ -214,8 +220,8 @@ public class PrepararPartida extends javax.swing.JFrame {
         }
 
     }
-    
-       /**
+
+    /**
      * Configurar Imagen de Fondo Ventana
      */
     private void asignarFondo() {
