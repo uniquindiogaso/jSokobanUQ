@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import javax.swing.JPanel;
 import jSokoban.Assets.Elemento;
+import jSokoban.Gui.PrepararPartida;
 import javax.swing.JOptionPane;
 
 public class Tablero extends JPanel {
@@ -673,6 +674,9 @@ public class Tablero extends JPanel {
         if (completadas == num) {
             calcularPuntaje();
             completo = true;
+            nivel++;
+            PrepararPartida pre = new PrepararPartida();
+           pre.cargarNivel(nivel);
             repaint();
         }
     }
