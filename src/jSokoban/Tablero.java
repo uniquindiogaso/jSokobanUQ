@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import javax.swing.JPanel;
 import jSokoban.Assets.Elemento;
+import javax.swing.JOptionPane;
 
 public class Tablero extends JPanel {
 
@@ -46,6 +47,7 @@ public class Tablero extends JPanel {
     //Manejo de Movimientos
     private int movimientosTotales;
     private int movimientoActual;
+    private int movimientosPuntaje;
 
     //Jugador
     private Avatar avatar;
@@ -65,12 +67,13 @@ public class Tablero extends JPanel {
     private Font fuente;
 
     public Tablero(int nivel) {
+        System.out.println("Tablero => Nivel a Cargar " + nivel);
         addKeyListener(new TAdapter());
         setFocusable(true);
         this.nivel = nivel;
         iniciarMundo();
     }
-    
+
     public Tablero(String mapa) {
         addKeyListener(new TAdapter());
         setFocusable(true);
@@ -145,6 +148,11 @@ public class Tablero extends JPanel {
     public final void iniciarMundo(String mapa) {
         //Iniciar Imagenes
         Assets.init();
+
+        //Construir Tablero
+        tablero = new TableroControlador(mapa);
+        
+        tablero.setMatrizJuego(tablero.toMatriz(mapa));
 
         int x = MARGEN;
         int y = MARGEN;
@@ -285,7 +293,7 @@ public class Tablero extends JPanel {
                 //Guardar Posicion Anterior a Movimiento
                 xAnterior = avatar.getX();
                 yAnterior = avatar.getY();
-
+                movimientosPuntaje++;
                 avatar.mover(-TAMANIO_ASSETS, 0);
 
             } else if (tecla == KeyEvent.VK_RIGHT) {
@@ -302,7 +310,7 @@ public class Tablero extends JPanel {
                 //Guardar Posicion Anterior a Movimiento
                 xAnterior = avatar.getX();
                 yAnterior = avatar.getY();
-
+                movimientosPuntaje++;
                 avatar.mover(TAMANIO_ASSETS, 0);
 
             } else if (tecla == KeyEvent.VK_UP) {
@@ -319,7 +327,7 @@ public class Tablero extends JPanel {
                 //Guardar Posicion Anterior a Movimiento
                 xAnterior = avatar.getX();
                 yAnterior = avatar.getY();
-
+                movimientosPuntaje++;
                 avatar.mover(0, -TAMANIO_ASSETS);
 
             } else if (tecla == KeyEvent.VK_DOWN) {
@@ -336,7 +344,7 @@ public class Tablero extends JPanel {
                 //Guardar Posicion Anterior a Movimiento
                 xAnterior = avatar.getX();
                 yAnterior = avatar.getY();
-
+                movimientosPuntaje++;
                 avatar.mover(0, TAMANIO_ASSETS);
 
             } else if (tecla == KeyEvent.VK_R) {
@@ -405,7 +413,7 @@ public class Tablero extends JPanel {
                     tablero.setMatrizJuego(tablero.toMatriz(movimientos.get(movimientoActual - 1).getTablero()));
                 }
                 movimientoActual--;
-
+                movimientosPuntaje++;
                 repaint();
             }
 
@@ -414,7 +422,7 @@ public class Tablero extends JPanel {
                 if (movimientoActual < movimientos.size() - 1) {
                     cargarNivel(movimientos.get(movimientoActual + 1).getTablero());
                     tablero.setMatrizJuego(tablero.toMatriz(movimientos.get(movimientoActual + 1).getTablero()));
-
+                    movimientosPuntaje++;
                     movimientoActual++;
                     repaint();
 
@@ -620,6 +628,29 @@ public class Tablero extends JPanel {
     }
 
     /**
+     * metodo para verificar si hay solucion
+     *
+     * @param caja
+     */
+
+    public void noHaySolucion(Caja caja) {
+
+        if (verificarColisionMuro(caja, COLISION_ABAJO) && verificarColisionMuro(caja, COLISION_DER)) {
+            JOptionPane.showMessageDialog(null, "La partida ya no tiene solucion!", "Advertencia!!!", JOptionPane.WARNING_MESSAGE);
+        }
+        if (verificarColisionMuro(caja, COLISION_ABAJO) && verificarColisionMuro(caja, COLISION_IZQ)) {
+            JOptionPane.showMessageDialog(null, "La partida ya no tiene solucion!", "Advertencia!!!", JOptionPane.WARNING_MESSAGE);
+        }
+        if (verificarColisionMuro(caja, COLISION_ARRIBA) && verificarColisionMuro(caja, COLISION_DER)) {
+            JOptionPane.showMessageDialog(null, "La partida ya no tiene solucion!", "Advertencia!!!", JOptionPane.WARNING_MESSAGE);
+        }
+        if (verificarColisionMuro(caja, COLISION_ARRIBA) && verificarColisionMuro(caja, COLISION_IZQ)) {
+            JOptionPane.showMessageDialog(null, "La partida ya no tiene solucion!", "Advertencia!!!", JOptionPane.WARNING_MESSAGE);
+        }
+
+    }
+
+    /**
      * Comprobar si ya se han colocado todas las cajas en su sitio
      */
     public void hayGanador() {
@@ -640,6 +671,7 @@ public class Tablero extends JPanel {
         }
 
         if (completadas == num) {
+            calcularPuntaje();
             completo = true;
             repaint();
         }
@@ -655,6 +687,15 @@ public class Tablero extends JPanel {
         if (completo) {
             completo = false;
         }
+    }
+
+    /**
+     * metodo para calcular el puntaje
+     */
+    public void calcularPuntaje() {
+        int total = tablero.getMatrizJuego().length * tablero.getMatrizJuego()[0].length;
+        JOptionPane.showMessageDialog(null, "Partida completada su puntaje es:" + " " + (total - (movimientosPuntaje + 1)));
+
     }
 
     /**
@@ -718,6 +759,7 @@ public class Tablero extends JPanel {
                 Caja caja = (Caja) cajas.get(i);
                 if (caja.getX() == xNueva && caja.getY() == yNueva) {
                     tablero.actualizarMatriz(xAnterior, yAnterior, xNueva, yNueva, 'C');
+                    noHaySolucion(caja);
                 }
             }
         }

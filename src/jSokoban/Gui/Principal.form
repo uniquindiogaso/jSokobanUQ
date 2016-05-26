@@ -46,11 +46,17 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Helvetica Neue" size="36" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Salir"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/jSokoban/Imagenes/Menu/btnSalir.png"/>
+        </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Salir"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel1MouseClicked"/>
+      </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="331" y="509" width="-1" height="-1"/>
+          <AbsoluteConstraints x="260" y="460" width="190" height="70"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -59,11 +65,16 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Helvetica Neue" size="36" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Jugar"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/jSokoban/Imagenes/Menu/btnJugar.png"/>
+        </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel2MouseClicked"/>
+      </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="316" y="133" width="-1" height="-1"/>
+          <AbsoluteConstraints x="270" y="130" width="190" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -72,11 +83,17 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Helvetica Neue" size="36" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Mapas"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/jSokoban/Imagenes/Menu/btnMapas.png"/>
+        </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Mapas"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel3MouseClicked"/>
+      </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="308" y="213" width="-1" height="-1"/>
+          <AbsoluteConstraints x="270" y="210" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -85,11 +102,14 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Helvetica Neue" size="36" style="1"/>
         </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/jSokoban/Imagenes/Menu/btnPuntajes.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Puntajes"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="285" y="362" width="-1" height="-1"/>
+          <AbsoluteConstraints x="270" y="290" width="190" height="60"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -98,11 +118,14 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Helvetica Neue" size="36" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Creditos"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/jSokoban/Imagenes/Menu/btnCreditos_.png"/>
+        </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Creditos"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="297" y="436" width="-1" height="-1"/>
+          <AbsoluteConstraints x="270" y="370" width="200" height="70"/>
         </Constraint>
       </Constraints>
     </Component>

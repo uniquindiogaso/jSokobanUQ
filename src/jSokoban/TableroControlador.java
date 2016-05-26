@@ -13,8 +13,7 @@ public class TableroControlador {
     public char MURO = 'M';
     public char AVATAR = 'A';
     public char VACIO = 'V';
-    
-    
+
     public static String PATH_MAPAS = System.getProperty("user.dir") + java.io.File.separator + "Mapas" + java.io.File.separator;
     public static String PATH_PARTIDAS = System.getProperty("user.dir") + java.io.File.separator + "Partidas" + java.io.File.separator;
 
@@ -29,6 +28,18 @@ public class TableroControlador {
     private Character[][] matrizJuego;
     private String rutaMapa;
     private int nivel;
+
+    public TableroControlador(String mapa) {
+
+        //Tablero de Prueba
+        this.xMin = 22;
+        this.yMin = 0;
+        this.xMax = 800;
+        this.yMax = 600;
+
+        tamanioPartida(mapa);
+
+    }
 
     public TableroControlador(int nivel) {
         this.rutaMapa = PATH_MAPAS + "mapa" + nivel + ".txt";
@@ -153,6 +164,27 @@ public class TableroControlador {
         }
 
         return false;
+    }
+
+    public void tamanioPartida(String mapa) {
+        String[] lineas = mapa.split("\n");
+        int filas = 0;
+        int columnas = 0;
+        for (String linea1 : lineas) {
+            char[] linea = linea1.toCharArray();
+            for (int j = 0; j < linea.length; j++) {
+                if (filas == 0) {
+                    columnas = linea.length;
+                }
+            }
+            filas++;
+        }
+
+        if (filas != 0 && columnas != 0) {
+            matrizJuego = new Character[filas][columnas];
+            return;
+        }
+
     }
 
     /**

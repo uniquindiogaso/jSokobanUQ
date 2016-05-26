@@ -25,6 +25,7 @@ public class Principal extends javax.swing.JFrame {
         setResizable(false);
         setSize(728, 645);
         asignarFondo();
+        setLocationRelativeTo(null);
         
 
     }
@@ -70,29 +71,48 @@ public class Principal extends javax.swing.JFrame {
         jButton1.setBounds(288, 11, 156, 42);
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
-        jLabel1.setText("Salir");
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnSalir.png"))); // NOI18N
+        jLabel1.setToolTipText("Salir");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(331, 509, 76, 45);
+        jLabel1.setBounds(260, 460, 190, 70);
 
         jLabel2.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
-        jLabel2.setText("Jugar");
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnJugar.png"))); // NOI18N
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(316, 133, 98, 45);
+        jLabel2.setBounds(270, 130, 190, 56);
 
         jLabel3.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
-        jLabel3.setText("Mapas");
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnMapas.png"))); // NOI18N
+        jLabel3.setToolTipText("Mapas");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(308, 213, 116, 45);
+        jLabel3.setBounds(270, 210, 189, 56);
 
         jLabel4.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnPuntajes.png"))); // NOI18N
         jLabel4.setText("Puntajes");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(285, 362, 150, 45);
+        jLabel4.setBounds(270, 290, 190, 60);
 
         jLabel5.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
-        jLabel5.setText("Creditos");
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnCreditos_.png"))); // NOI18N
+        jLabel5.setToolTipText("Creditos");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(297, 436, 147, 45);
+        jLabel5.setBounds(270, 370, 200, 70);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -101,6 +121,22 @@ public class Principal extends javax.swing.JFrame {
         Partida partida = new Partida(1);
         partida.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        setVisible(false);
+        PrepararPartida partida = new PrepararPartida();
+        partida.setVisible(true);
+    }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+       setVisible(false);
+       GestionMapas mapas = new GestionMapas();
+       mapas.setVisible(true);
+    }//GEN-LAST:event_jLabel3MouseClicked
 
     /**
      * @param args the command line arguments

@@ -5,8 +5,12 @@
  */
 package jSokoban.Gui;
 
+import jSokoban.ArchivoControlador;
 import jSokoban.TableroControlador;
 import java.io.File;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -19,7 +23,9 @@ public class GestionMapas extends javax.swing.JFrame {
      */
     public GestionMapas() {
         initComponents();
-        comprobarMapas();
+        cargarListadoMapas();
+        setLocationRelativeTo(null);
+        setResizable(true);
     }
 
     /**
@@ -37,63 +43,105 @@ public class GestionMapas extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        jLabel1.setText("Mapas Disponibles");
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnRegresar.png"))); // NOI18N
+        jLabel1.setToolTipText("Mapas Disponibles");
 
         cbMapasDisponibles.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        jLabel2.setText("Modificar");
+        jLabel2.setText("M");
 
         jLabel3.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        jLabel3.setText("Cargar Mapa");
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnCargarMapa.png"))); // NOI18N
+        jLabel3.setToolTipText("Cargar Mapa");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        jLabel4.setText("Crear Mapa");
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnCrearMapa.png"))); // NOI18N
+        jLabel4.setToolTipText("Crear Mapa");
 
         jLabel5.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        jLabel5.setText("Eliminar");
+        jLabel5.setText("E");
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnMapasDis.png"))); // NOI18N
+        jLabel6.setToolTipText("Mapas Disponibles");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(190, 190, 190)
+                        .addComponent(jLabel4))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(180, 180, 180)
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(180, 180, 180)
                         .addComponent(cbMapasDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5))
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(13, 13, 13)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(194, 194, 194)
+                        .addComponent(jLabel1)))
+                .addGap(123, 123, 123))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(200, 200, 200)
+                    .addComponent(jLabel6)
+                    .addContainerGap(214, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
+                .addGap(40, 40, 40)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(14, 14, 14)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(84, 84, 84)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cbMapasDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel5))
-                .addContainerGap(157, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addContainerGap(23, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(189, Short.MAX_VALUE)
+                    .addComponent(jLabel6)
+                    .addGap(156, 156, 156)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        cargarArchivoExterno();
+    }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        eliminarMapa();
+    }//GEN-LAST:event_jLabel5MouseClicked
 
     /**
      * @param args the command line arguments
@@ -137,6 +185,7 @@ public class GestionMapas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     // End of variables declaration//GEN-END:variables
 
     /**
@@ -162,7 +211,6 @@ public class GestionMapas extends javax.swing.JFrame {
         return mapas;
     }
 
-    
     public static String[] partidasGuardadas() {
         String[] partidas = null;
         File carpetaPartidas = new File(TableroControlador.PATH_PARTIDAS);
@@ -181,19 +229,19 @@ public class GestionMapas extends javax.swing.JFrame {
 
         return partidas;
     }
-    
+
     /**
      * Identifica los mapas que se encuentras instalados
      */
-    private void comprobarMapas() {
+    private void cargarListadoMapas() {
         //Borrar Listado de Mapas que se tienen para evitar repetidos
-        cbMapasDisponibles.removeAll();
+        cbMapasDisponibles.removeAllItems();
 
         String[] mapasDisponibles = mapasDisponibles();
         for (String mapaDisponible : mapasDisponibles) {
             cbMapasDisponibles.addItem(mapaDisponible);
         }
-        
+
     }
 
     /**
@@ -216,6 +264,46 @@ public class GestionMapas extends javax.swing.JFrame {
             //Lanzar Excepcion
         }
         return res;
+    }
+
+    /**
+     * Cargar Mapa a Carpeta de Mapas del Juego
+     */
+    private void cargarArchivoExterno() {
+        JFileChooser seleccionadorArchivos = new JFileChooser();
+        //Que solo permita archivos planos
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
+        seleccionadorArchivos.setFileFilter(filter);
+
+        seleccionadorArchivos.showOpenDialog(this);
+
+        File abre = seleccionadorArchivos.getSelectedFile();
+
+        if (abre != null) {
+            if (ArchivoControlador.transferirMapa(abre.getAbsolutePath())) {
+                cargarListadoMapas();
+                JOptionPane.showMessageDialog(this, "Mapa Cargado Correctamente", "¡A Jugar! - Mapa Cargado", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "No fue posible cargar el mapa, el contenido no parece valido", "Upss - Mapa no Valido", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+        }
+
+    }
+
+    public void eliminarMapa() {
+        if (cbMapasDisponibles.getSelectedItem() != null) {
+            String nombreMapa = cbMapasDisponibles.getSelectedItem().toString();
+
+            nombreMapa = TableroControlador.PATH_MAPAS + nombreMapa + ".txt";
+            if (ArchivoControlador.eliminarArchivo(nombreMapa)) {                
+                JOptionPane.showMessageDialog(this, "Se ha removido el mapa de la lista de mapas disponibles para jugar", "Mapa Eliminado", JOptionPane.INFORMATION_MESSAGE);                
+                //Obtener de nuevo los campas existentes en carpeta
+                cargarListadoMapas();
+            } else {
+                JOptionPane.showMessageDialog(this, "No fue posible eliminar el mapa, tendra que realizar esta tarea manualmente.\n Diríjase a la ruta "+ TableroControlador.PATH_MAPAS + " y suprima el mapa " + cbMapasDisponibles.getSelectedItem().toString()+".txt", "Upss - Algo ha salido mal", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
     }
 
 }

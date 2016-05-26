@@ -5,13 +5,17 @@
  */
 package jSokoban;
 
+import jSokoban.Gui.GestionMapas;
 import static jSokoban.TableroControlador.SEPARADOR;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -69,4 +73,44 @@ public class ArchivoControlador {
 
     }
 
+    /**
+     * Cargar ARchivo de Mapa de una ubicacion a la Carpeta de Mapas del
+     * VideoJuego
+     *
+     * @param rutaOrigen
+     * @return 
+     */
+    public static boolean transferirMapa(String rutaOrigen) {
+        try {
+            File aOrigen = new File(rutaOrigen);
+            //Aqui comprobar que sea un mapa valido            
+            FileChannel origen = new FileInputStream(new File(rutaOrigen)).getChannel();
+            //@FIXME - Si eliminan un mapa de una numeracion diferente, este se sobre escribira ( usar recursividad)
+            String archivo = TableroControlador.PATH_MAPAS + "mapa" + ( GestionMapas.numMapas() + 1) + ".txt";
+
+            FileChannel destino = new FileOutputStream(new File(archivo)).getChannel();
+            destino.transferFrom(origen, 0, origen.size());
+            origen.close();
+            destino.close();
+            return true;
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ArchivoControlador.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ArchivoControlador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
+    }
+
+    public static boolean eliminarArchivo(String ruta) {
+        File archivo;
+        try {
+            archivo = new File(ruta);
+            return archivo.delete();
+        } catch (Exception e) {
+            Logger.getLogger(ArchivoControlador.class.getName()).log(Level.WARNING, "Imposible eliminar archivo");
+            return false;
+        }
+
+    }
 }

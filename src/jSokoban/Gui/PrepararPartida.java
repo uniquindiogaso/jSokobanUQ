@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  * @author gusta
  */
 public class PrepararPartida extends javax.swing.JFrame {
-    
+
     Partida ventanaJuego;
 
     /**
@@ -45,7 +45,8 @@ public class PrepararPartida extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel4.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        jLabel4.setText("Cargar Partida");
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnCargarPart.png"))); // NOI18N
+        jLabel4.setToolTipText("Cargar Partida");
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel4MouseClicked(evt);
@@ -53,10 +54,12 @@ public class PrepararPartida extends javax.swing.JFrame {
         });
 
         jLabel5.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        jLabel5.setText("Regresar");
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnRegresar.png"))); // NOI18N
+        jLabel5.setToolTipText("Regresar");
 
         jLabel6.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        jLabel6.setText("Partida Nueva");
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnNueva.png"))); // NOI18N
+        jLabel6.setToolTipText("Partida Nueva");
         jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel6MouseClicked(evt);
@@ -64,7 +67,8 @@ public class PrepararPartida extends javax.swing.JFrame {
         });
 
         jLabel7.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        jLabel7.setText("Partida Aleatoria");
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnAleatoria.png"))); // NOI18N
+        jLabel7.setToolTipText("Partida Aleatoria");
         jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel7MouseClicked(evt);
@@ -76,19 +80,17 @@ public class PrepararPartida extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(100, 100, 100)
+                .addGap(118, 118, 118)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel6))
-                        .addGap(18, 18, 18))
-                    .addComponent(jLabel7)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(jLabel5)))
-                .addContainerGap(100, Short.MAX_VALUE))
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel5))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel7)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))))
+                .addContainerGap(170, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -101,7 +103,7 @@ public class PrepararPartida extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         pack();
@@ -116,11 +118,6 @@ public class PrepararPartida extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-        /**
-         * 1. Mostrar JOptionPane con Arreglo 2. Leer Archivo y extraer
-         * Contenido 3. Analizar ¿Que se envia al Tablero?
-         */
-        
         cargarPartidaGuardada();
     }//GEN-LAST:event_jLabel4MouseClicked
 
@@ -169,43 +166,47 @@ public class PrepararPartida extends javax.swing.JFrame {
     public boolean cargarNuevaPartida() {
         return cargarNivel(1);
     }
-    
+
     public boolean cargarMapaAleatorio() {
         Random rng = new Random();
         Integer mapaAleatorio;
         try {
             mapaAleatorio = rng.nextInt(GestionMapas.numMapas()) + 1;
+            System.out.println("Aleatorio? = " + mapaAleatorio);
             return cargarNivel(mapaAleatorio);
         } catch (Exception e) {
             Logger.getLogger(PrepararPartida.class.getName()).log(Level.SEVERE, "No se logro identificar un mapa aleatorio valido");
             return cargarNivel(1);
         }
     }
-    
+
     public boolean cargarNivel(int nivel) {
         System.out.println("nivel a cargar  = " + nivel);
         ventanaJuego = new Partida(nivel);
         ventanaJuego.setVisible(true);
         return true;
     }
-    
+
     private void cargarPartidaGuardada() {
         String[] partidas = GestionMapas.partidasGuardadas();
         System.out.println("partidas = " + partidas.length);
         if (partidas != null && partidas.length > 0) {
             String nombrePartida = (String) JOptionPane.showInputDialog(this, "Seleccione Partida que desea cargar", "Cargar Partida Guardada", JOptionPane.INFORMATION_MESSAGE, null, partidas, this);
-            //Leer Partida
-            String rutaArchivo = TableroControlador.PATH_PARTIDAS + nombrePartida + ".txt";
-            
-            String partida = ArchivoControlador.cargarArchivo(rutaArchivo);
-            
-            ventanaJuego = new Partida(partida);
-            ventanaJuego.setVisible(true);
-            
+
+            if (nombrePartida != null) {
+                //Leer Partida
+                String rutaArchivo = TableroControlador.PATH_PARTIDAS + nombrePartida + ".txt";
+
+                String partida = ArchivoControlador.cargarArchivo(rutaArchivo);
+
+                ventanaJuego = new Partida(partida);
+                ventanaJuego.setVisible(true);
+            }
+
         } else {
             JOptionPane.showMessageDialog(this, "No se ha grabado ninguna partida aun", "Sin partidas que cargar", JOptionPane.INFORMATION_MESSAGE);
         }
-        
+
     }
-    
+
 }
