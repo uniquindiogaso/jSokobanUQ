@@ -43,41 +43,46 @@ public class PrepararPartida extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        bCargarPartida = new javax.swing.JLabel();
+        bRegresar = new javax.swing.JLabel();
+        bNuevaPartida = new javax.swing.JLabel();
+        bPartidaAleatoria = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel4.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnCargarPart.png"))); // NOI18N
-        jLabel4.setToolTipText("Cargar Partida");
-        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+        bCargarPartida.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
+        bCargarPartida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnCargarPart.png"))); // NOI18N
+        bCargarPartida.setToolTipText("Cargar Partida");
+        bCargarPartida.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel4MouseClicked(evt);
+                bCargarPartidaMouseClicked(evt);
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnRegresar.png"))); // NOI18N
-        jLabel5.setToolTipText("Regresar");
-
-        jLabel6.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnNueva.png"))); // NOI18N
-        jLabel6.setToolTipText("Partida Nueva");
-        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+        bRegresar.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
+        bRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnRegresar.png"))); // NOI18N
+        bRegresar.setToolTipText("Regresar");
+        bRegresar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel6MouseClicked(evt);
+                bRegresarMouseClicked(evt);
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnAleatoria.png"))); // NOI18N
-        jLabel7.setToolTipText("Partida Aleatoria");
-        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+        bNuevaPartida.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
+        bNuevaPartida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnNueva.png"))); // NOI18N
+        bNuevaPartida.setToolTipText("Partida Nueva");
+        bNuevaPartida.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel7MouseClicked(evt);
+                bNuevaPartidaMouseClicked(evt);
+            }
+        });
+
+        bPartidaAleatoria.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
+        bPartidaAleatoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnAleatoria.png"))); // NOI18N
+        bPartidaAleatoria.setToolTipText("Partida Aleatoria");
+        bPartidaAleatoria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bPartidaAleatoriaMouseClicked(evt);
             }
         });
 
@@ -90,42 +95,46 @@ public class PrepararPartida extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addComponent(jLabel5))
+                        .addComponent(bRegresar))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel7)
+                        .addComponent(bPartidaAleatoria)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))))
+                            .addComponent(bCargarPartida)
+                            .addComponent(bNuevaPartida, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap(272, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(230, Short.MAX_VALUE)
-                .addComponent(jLabel6)
+                .addComponent(bNuevaPartida)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
+                .addComponent(bPartidaAleatoria)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
+                .addComponent(bCargarPartida)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
+                .addComponent(bRegresar)
                 .addGap(173, 173, 173))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+    private void bNuevaPartidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bNuevaPartidaMouseClicked
         cargarNuevaPartida();
-    }//GEN-LAST:event_jLabel6MouseClicked
+    }//GEN-LAST:event_bNuevaPartidaMouseClicked
 
-    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+    private void bPartidaAleatoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bPartidaAleatoriaMouseClicked
         cargarMapaAleatorio();
-    }//GEN-LAST:event_jLabel7MouseClicked
+    }//GEN-LAST:event_bPartidaAleatoriaMouseClicked
 
-    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+    private void bCargarPartidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bCargarPartidaMouseClicked
         cargarPartidaGuardada();
-    }//GEN-LAST:event_jLabel4MouseClicked
+    }//GEN-LAST:event_bCargarPartidaMouseClicked
+
+    private void bRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bRegresarMouseClicked
+        regresarMenu();
+    }//GEN-LAST:event_bRegresarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -163,10 +172,10 @@ public class PrepararPartida extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel bCargarPartida;
+    private javax.swing.JLabel bNuevaPartida;
+    private javax.swing.JLabel bPartidaAleatoria;
+    private javax.swing.JLabel bRegresar;
     // End of variables declaration//GEN-END:variables
 
     public boolean cargarNuevaPartida() {
@@ -196,6 +205,7 @@ public class PrepararPartida extends javax.swing.JFrame {
         System.out.println("nivel a cargar  = " + nivel);
         ventanaJuego = new Partida(nivel);
         ventanaJuego.setVisible(true);
+        this.setVisible(false);
         return true;
     }
 
@@ -213,6 +223,7 @@ public class PrepararPartida extends javax.swing.JFrame {
 
                 ventanaJuego = new Partida(partida);
                 ventanaJuego.setVisible(true);
+                this.setVisible(false);
             }
 
         } else {
@@ -230,6 +241,12 @@ public class PrepararPartida extends javax.swing.JFrame {
         imagenFondo.setIcon(new ImageIcon(Principal.class.getResource("../Imagenes/Menu/fondoPartida.png")));
         imagenFondo.setSize(getSize());
         add(imagenFondo);
+    }
+
+    private void regresarMenu() {
+        this.setVisible(false);
+        Principal menuPrincipal = new Principal();         
+        menuPrincipal.setVisible(true);
     }
 
 }

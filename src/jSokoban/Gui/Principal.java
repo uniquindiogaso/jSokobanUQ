@@ -50,77 +50,77 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        bSalir = new javax.swing.JLabel();
+        bJugar = new javax.swing.JLabel();
+        bMapas = new javax.swing.JLabel();
+        bPuntaje = new javax.swing.JLabel();
+        bCreditos = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnSalir.png"))); // NOI18N
-        jLabel1.setToolTipText("Salir");
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        bSalir.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
+        bSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnSalir.png"))); // NOI18N
+        bSalir.setToolTipText("Salir");
+        bSalir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
+                bSalirMouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(270, 410, 190, 70);
+        getContentPane().add(bSalir);
+        bSalir.setBounds(270, 410, 190, 70);
 
-        jLabel2.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnJugar.png"))); // NOI18N
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+        bJugar.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
+        bJugar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnJugar.png"))); // NOI18N
+        bJugar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel2MouseClicked(evt);
+                bJugarMouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(270, 150, 190, 56);
+        getContentPane().add(bJugar);
+        bJugar.setBounds(270, 150, 190, 56);
 
-        jLabel3.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnMapas.png"))); // NOI18N
-        jLabel3.setToolTipText("Mapas");
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        bMapas.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
+        bMapas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnMapas.png"))); // NOI18N
+        bMapas.setToolTipText("Mapas");
+        bMapas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
+                bMapasMouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(270, 210, 189, 56);
+        getContentPane().add(bMapas);
+        bMapas.setBounds(270, 210, 189, 56);
 
-        jLabel4.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnPuntajes.png"))); // NOI18N
-        jLabel4.setText("Puntajes");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(270, 280, 190, 60);
+        bPuntaje.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
+        bPuntaje.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnPuntajes.png"))); // NOI18N
+        bPuntaje.setText("Puntajes");
+        getContentPane().add(bPuntaje);
+        bPuntaje.setBounds(270, 280, 190, 60);
 
-        jLabel5.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnCreditos_.png"))); // NOI18N
-        jLabel5.setToolTipText("Creditos");
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(270, 340, 200, 70);
+        bCreditos.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
+        bCreditos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnCreditos_.png"))); // NOI18N
+        bCreditos.setToolTipText("Creditos");
+        getContentPane().add(bCreditos);
+        bCreditos.setBounds(270, 340, 200, 70);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+    private void bSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bSalirMouseClicked
         System.exit(0);
-    }//GEN-LAST:event_jLabel1MouseClicked
+    }//GEN-LAST:event_bSalirMouseClicked
 
-    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+    private void bJugarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bJugarMouseClicked
         setVisible(false);
         PrepararPartida partida = new PrepararPartida();
         partida.setVisible(true);
-    }//GEN-LAST:event_jLabel2MouseClicked
+    }//GEN-LAST:event_bJugarMouseClicked
 
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+    private void bMapasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bMapasMouseClicked
        setVisible(false);
        GestionMapas mapas = new GestionMapas();
        mapas.setVisible(true);
-    }//GEN-LAST:event_jLabel3MouseClicked
+    }//GEN-LAST:event_bMapasMouseClicked
 
     /**
      * @param args the command line arguments
@@ -158,10 +158,10 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel bCreditos;
+    private javax.swing.JLabel bJugar;
+    private javax.swing.JLabel bMapas;
+    private javax.swing.JLabel bPuntaje;
+    private javax.swing.JLabel bSalir;
     // End of variables declaration//GEN-END:variables
 }
