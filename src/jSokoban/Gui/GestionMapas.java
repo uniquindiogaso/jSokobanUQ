@@ -218,13 +218,14 @@ public class GestionMapas extends javax.swing.JFrame {
 
     /**
      * Obtiene el Numero de Mapa correspondiente al primer Mapa en el Sistema
+     * @param pos
      * @return 
      */
-    public static int obtenerPrimerMapa() {
+    public static int obtenerNumeroMapa(int pos) {
         try {
             if (mapasDisponibles() != null) {
                 //Eliminar caracteres que no sean numero
-                String mapa = mapasDisponibles()[0].replaceAll("\\D+", "");
+                String mapa = mapasDisponibles()[pos].replaceAll("\\D+", "");
                 return Integer.parseInt(mapa);
             }
         } catch (NumberFormatException e) {
@@ -233,6 +234,9 @@ public class GestionMapas extends javax.swing.JFrame {
 
         return -1;
     }
+    
+    
+
 
     public static String[] partidasGuardadas() {
         String[] partidas = null;

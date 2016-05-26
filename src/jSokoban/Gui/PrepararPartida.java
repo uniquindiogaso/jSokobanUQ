@@ -170,7 +170,7 @@ public class PrepararPartida extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public boolean cargarNuevaPartida() {
-        int numPartida = GestionMapas.obtenerPrimerMapa();
+        int numPartida = GestionMapas.obtenerNumeroMapa(0);
 
         if (numPartida != -1) {
             return cargarNivel(numPartida);
@@ -183,9 +183,9 @@ public class PrepararPartida extends javax.swing.JFrame {
         Random rng = new Random();
         Integer mapaAleatorio;
         try {
-            mapaAleatorio = rng.nextInt(GestionMapas.numMapas()) + 1;
+            mapaAleatorio = rng.nextInt(GestionMapas.numMapas());
             System.out.println("Aleatorio? = " + mapaAleatorio);
-            return cargarNivel(mapaAleatorio);
+            return cargarNivel(GestionMapas.obtenerNumeroMapa(mapaAleatorio));            
         } catch (Exception e) {
             Logger.getLogger(PrepararPartida.class.getName()).log(Level.SEVERE, "No se logro identificar un mapa aleatorio valido");
             return cargarNivel(1);
