@@ -44,19 +44,23 @@ public class GestionMapas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        bRegresar = new javax.swing.JLabel();
         cbMapasDisponibles = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        bCrearMapa = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnRegresar.png"))); // NOI18N
-        jLabel1.setToolTipText("Mapas Disponibles");
+        bRegresar.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
+        bRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnRegresar.png"))); // NOI18N
+        bRegresar.setToolTipText("Mapas Disponibles");
+        bRegresar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bRegresarMouseClicked(evt);
+            }
+        });
 
         cbMapasDisponibles.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
         cbMapasDisponibles.setForeground(new java.awt.Color(0, 102, 0));
@@ -74,9 +78,14 @@ public class GestionMapas extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnCrearMapa.png"))); // NOI18N
-        jLabel4.setToolTipText("Crear Mapa");
+        bCrearMapa.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
+        bCrearMapa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnCrearMapa.png"))); // NOI18N
+        bCrearMapa.setToolTipText("Crear Mapa");
+        bCrearMapa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bCrearMapaMouseClicked(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/eliminar.png"))); // NOI18N
@@ -87,10 +96,6 @@ public class GestionMapas extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnMapasDis.png"))); // NOI18N
-        jLabel6.setToolTipText("Mapas Disponibles");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -99,42 +104,36 @@ public class GestionMapas extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(271, 271, 271)
-                        .addComponent(jLabel4))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(271, 271, 271)
-                        .addComponent(jLabel3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(271, 271, 271)
-                        .addComponent(jLabel6))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(257, 257, 257)
-                        .addComponent(jLabel1))
+                        .addComponent(bCrearMapa))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(249, 249, 249)
                         .addComponent(cbMapasDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(271, 271, 271)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(bRegresar)
+                            .addComponent(jLabel3))))
                 .addContainerGap(153, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(159, 159, 159)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(136, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbMapasDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel5))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bCrearMapa)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
-                .addContainerGap())
+                .addGap(12, 12, 12)
+                .addComponent(bRegresar)
+                .addGap(97, 97, 97))
         );
 
         pack();
@@ -147,6 +146,18 @@ public class GestionMapas extends javax.swing.JFrame {
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         eliminarMapa();
     }//GEN-LAST:event_jLabel5MouseClicked
+
+    private void bCrearMapaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bCrearMapaMouseClicked
+        ConstructorMapas constructor = new ConstructorMapas();
+        constructor.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_bCrearMapaMouseClicked
+
+    private void bRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bRegresarMouseClicked
+        this.setVisible(false);
+        Principal menuPrincipal = new Principal();
+        menuPrincipal.setVisible(true);
+    }//GEN-LAST:event_bRegresarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -184,13 +195,12 @@ public class GestionMapas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel bCrearMapa;
+    private javax.swing.JLabel bRegresar;
     private javax.swing.JComboBox cbMapasDisponibles;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     // End of variables declaration//GEN-END:variables
 
     /**
@@ -218,8 +228,9 @@ public class GestionMapas extends javax.swing.JFrame {
 
     /**
      * Obtiene el Numero de Mapa correspondiente al primer Mapa en el Sistema
+     *
      * @param pos
-     * @return 
+     * @return
      */
     public static int obtenerNumeroMapa(int pos) {
         try {
@@ -234,9 +245,24 @@ public class GestionMapas extends javax.swing.JFrame {
 
         return -1;
     }
-    
-    
 
+    /**
+     * Identificar codigo del mapa a guardar
+     *
+     * @return
+     */
+    public static int asignarNumeroMapa() {
+
+        String[] mapDispo = mapasDisponibles();
+
+        if (mapDispo != null) {
+            int ultimo = obtenerNumeroMapa(mapDispo.length - 1);
+            return ultimo + 1;
+        }
+
+        return 0;
+
+    }
 
     public static String[] partidasGuardadas() {
         String[] partidas = null;

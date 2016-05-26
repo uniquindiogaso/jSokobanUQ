@@ -423,7 +423,7 @@ public class ConstructorMapas extends javax.swing.JFrame {
     private boolean guardarMapa() {
         //Sino se a guardado identificar cual sera el num de mapa que le corresponda
         if (!guardado) {
-            numMapa = GestionMapas.numMapas();
+            numMapa = GestionMapas.asignarNumeroMapa();
         }
         String ruta = System.getProperty("user.dir") + java.io.File.separator + "Mapas" + java.io.File.separator + "mapa" + numMapa + ".txt";
 
