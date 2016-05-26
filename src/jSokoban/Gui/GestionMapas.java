@@ -5,6 +5,7 @@
  */
 package jSokoban.Gui;
 
+import com.sun.jmx.snmp.BerDecoder;
 import jSokoban.ArchivoControlador;
 import jSokoban.TableroControlador;
 import java.awt.Color;
@@ -213,6 +214,24 @@ public class GestionMapas extends javax.swing.JFrame {
         }
 
         return mapas;
+    }
+
+    /**
+     * Obtiene el Numero de Mapa correspondiente al primer Mapa en el Sistema
+     * @return 
+     */
+    public static int obtenerPrimerMapa() {
+        try {
+            if (mapasDisponibles() != null) {
+                //Eliminar caracteres que no sean numero
+                String mapa = mapasDisponibles()[0].replaceAll("\\D+", "");
+                return Integer.parseInt(mapa);
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("No se logro identificar el num del mapa");
+        }
+
+        return -1;
     }
 
     public static String[] partidasGuardadas() {
