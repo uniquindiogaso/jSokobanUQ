@@ -10,6 +10,8 @@ import jSokoban.TableroControlador;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,12 +21,16 @@ import javax.swing.JOptionPane;
 public class PrepararPartida extends javax.swing.JFrame {
 
     Partida ventanaJuego;
-
+     private JLabel imagenFondo;
+     
     /**
      * Creates new form PrepararPartida
      */
     public PrepararPartida() {
         initComponents();
+        setResizable(false);
+        setSize(728, 645);
+        asignarFondo();
         setLocationRelativeTo(null);
     }
 
@@ -80,7 +86,7 @@ public class PrepararPartida extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(118, 118, 118)
+                .addGap(250, 250, 250)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
@@ -90,12 +96,12 @@ public class PrepararPartida extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
                             .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addContainerGap(170, Short.MAX_VALUE))
+                .addContainerGap(272, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(61, 61, 61)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(230, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
@@ -103,7 +109,7 @@ public class PrepararPartida extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addGap(173, 173, 173))
         );
 
         pack();
@@ -207,6 +213,17 @@ public class PrepararPartida extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No se ha grabado ninguna partida aun", "Sin partidas que cargar", JOptionPane.INFORMATION_MESSAGE);
         }
 
+    }
+    
+       /**
+     * Configurar Imagen de Fondo Ventana
+     */
+    private void asignarFondo() {
+        //setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("../Imagenes/Menu/Principal1.png"))));
+        imagenFondo = new JLabel();
+        imagenFondo.setIcon(new ImageIcon(Principal.class.getResource("../Imagenes/Menu/fondoPartida.png")));
+        imagenFondo.setSize(getSize());
+        add(imagenFondo);
     }
 
 }

@@ -36,7 +36,7 @@ public class Principal extends javax.swing.JFrame {
     private void asignarFondo() {
         //setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("../Imagenes/Menu/Principal1.png"))));
         imagenFondo = new JLabel();
-        imagenFondo.setIcon(new ImageIcon(Principal.class.getResource("../Imagenes/Menu/Principal1.png")));
+        imagenFondo.setIcon(new ImageIcon(Principal.class.getResource("../Imagenes/Menu/fondoPrincipal.png")));
         imagenFondo.setSize(getSize());
         add(imagenFondo);
     }
@@ -50,7 +50,6 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -59,16 +58,6 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
-
-        jButton1.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        jButton1.setText("Iniciar Nivel");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(288, 11, 156, 42);
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnSalir.png"))); // NOI18N
@@ -79,7 +68,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(260, 460, 190, 70);
+        jLabel1.setBounds(270, 410, 190, 70);
 
         jLabel2.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnJugar.png"))); // NOI18N
@@ -89,7 +78,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(270, 130, 190, 56);
+        jLabel2.setBounds(270, 150, 190, 56);
 
         jLabel3.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnMapas.png"))); // NOI18N
@@ -106,21 +95,16 @@ public class Principal extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnPuntajes.png"))); // NOI18N
         jLabel4.setText("Puntajes");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(270, 290, 190, 60);
+        jLabel4.setBounds(270, 280, 190, 60);
 
         jLabel5.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnCreditos_.png"))); // NOI18N
         jLabel5.setToolTipText("Creditos");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(270, 370, 200, 70);
+        jLabel5.setBounds(270, 340, 200, 70);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Partida partida = new Partida(1);
-        partida.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         System.exit(0);
@@ -174,7 +158,6 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

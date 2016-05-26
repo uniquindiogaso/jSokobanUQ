@@ -5,9 +5,11 @@
  */
 package jSokoban.Gui;
 
+import jSokoban.Solucionador;
 import java.awt.Component;
 import javax.swing.JFrame;
 import jSokoban.Tablero;
+import jSokoban.TableroControlador;
 
 /**
  *
@@ -16,6 +18,8 @@ import jSokoban.Tablero;
 public class Partida extends javax.swing.JFrame {
 
     Tablero board;
+    Solucionador sol;
+    TableroControlador tab;
 
 
     public Partida(int nivel) {
@@ -23,6 +27,7 @@ public class Partida extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         
         board = new Tablero(nivel);
+        tab = new TableroControlador(nivel);
         add(board);
 
         board.setBounds(10, 60, board.getAnchoTablero(), board.getAltoTablero());
@@ -117,6 +122,11 @@ public class Partida extends javax.swing.JFrame {
         bRehacer3.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         bRehacer3.setForeground(java.awt.Color.red);
         bRehacer3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/guru.png"))); // NOI18N
+        bRehacer3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bRehacer3MouseClicked(evt);
+            }
+        });
         getContentPane().add(bRehacer3);
         bRehacer3.setBounds(90, 0, 50, 40);
 
@@ -158,6 +168,10 @@ public class Partida extends javax.swing.JFrame {
     private void bRehacer2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bRehacer2MouseClicked
         board.iMovimientos();
     }//GEN-LAST:event_bRehacer2MouseClicked
+
+    private void bRehacer3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bRehacer3MouseClicked
+     sol = new Solucionador(tab.matrizToString());
+    }//GEN-LAST:event_bRehacer3MouseClicked
 
     /**
      * @param args the command line arguments

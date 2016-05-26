@@ -7,10 +7,15 @@ package jSokoban.Gui;
 
 import jSokoban.ArchivoControlador;
 import jSokoban.TableroControlador;
+import java.awt.Color;
 import java.io.File;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.plaf.ColorUIResource;
 
 /**
  *
@@ -18,14 +23,15 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class GestionMapas extends javax.swing.JFrame {
 
-    /**
-     * Creates new form GestionMapas
-     */
+    private JLabel imagenFondo;
+
     public GestionMapas() {
         initComponents();
         cargarListadoMapas();
+        setResizable(false);
+        setSize(728, 645);
+        asignarFondo();
         setLocationRelativeTo(null);
-        setResizable(true);
     }
 
     /**
@@ -52,9 +58,11 @@ public class GestionMapas extends javax.swing.JFrame {
         jLabel1.setToolTipText("Mapas Disponibles");
 
         cbMapasDisponibles.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
+        cbMapasDisponibles.setForeground(new java.awt.Color(0, 102, 0));
 
         jLabel2.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        jLabel2.setText("M");
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/editar.png"))); // NOI18N
+        jLabel2.setToolTipText("Modificar Mapa");
 
         jLabel3.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnCargarMapa.png"))); // NOI18N
@@ -70,7 +78,8 @@ public class GestionMapas extends javax.swing.JFrame {
         jLabel4.setToolTipText("Crear Mapa");
 
         jLabel5.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        jLabel5.setText("E");
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/eliminar.png"))); // NOI18N
+        jLabel5.setToolTipText("Eliminar Mapa");
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel5MouseClicked(evt);
@@ -88,48 +97,43 @@ public class GestionMapas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(190, 190, 190)
+                        .addGap(271, 271, 271)
                         .addComponent(jLabel4))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(180, 180, 180)
+                        .addGap(271, 271, 271)
                         .addComponent(jLabel3))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(180, 180, 180)
-                        .addComponent(cbMapasDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(13, 13, 13)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(271, 271, 271)
+                        .addComponent(jLabel6))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(194, 194, 194)
-                        .addComponent(jLabel1)))
-                .addGap(123, 123, 123))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(200, 200, 200)
-                    .addComponent(jLabel6)
-                    .addContainerGap(214, Short.MAX_VALUE)))
+                        .addGap(257, 257, 257)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(249, 249, 249)
+                        .addComponent(cbMapasDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(153, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(jLabel4)
-                .addGap(14, 14, 14)
-                .addComponent(jLabel3)
-                .addGap(84, 84, 84)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(159, 159, 159)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbMapasDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel5))
                 .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addContainerGap(23, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(189, Short.MAX_VALUE)
-                    .addComponent(jLabel6)
-                    .addGap(156, 156, 156)))
+                .addContainerGap())
         );
 
         pack();
@@ -296,14 +300,30 @@ public class GestionMapas extends javax.swing.JFrame {
             String nombreMapa = cbMapasDisponibles.getSelectedItem().toString();
 
             nombreMapa = TableroControlador.PATH_MAPAS + nombreMapa + ".txt";
-            if (ArchivoControlador.eliminarArchivo(nombreMapa)) {                
-                JOptionPane.showMessageDialog(this, "Se ha removido el mapa de la lista de mapas disponibles para jugar", "Mapa Eliminado", JOptionPane.INFORMATION_MESSAGE);                
+            if (ArchivoControlador.eliminarArchivo(nombreMapa)) {
+                JOptionPane.showMessageDialog(this, "Se ha removido el mapa de la lista de mapas disponibles para jugar", "Mapa Eliminado", JOptionPane.INFORMATION_MESSAGE);
                 //Obtener de nuevo los campas existentes en carpeta
                 cargarListadoMapas();
             } else {
-                JOptionPane.showMessageDialog(this, "No fue posible eliminar el mapa, tendra que realizar esta tarea manualmente.\n Diríjase a la ruta "+ TableroControlador.PATH_MAPAS + " y suprima el mapa " + cbMapasDisponibles.getSelectedItem().toString()+".txt", "Upss - Algo ha salido mal", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No fue posible eliminar el mapa, tendra que realizar esta tarea manualmente.\n Diríjase a la ruta " + TableroControlador.PATH_MAPAS + " y suprima el mapa " + cbMapasDisponibles.getSelectedItem().toString() + ".txt", "Upss - Algo ha salido mal", JOptionPane.INFORMATION_MESSAGE);
             }
         }
+    }
+
+    /**
+     * Configurar Imagen de Fondo Ventana
+     */
+    private void asignarFondo() {
+        //setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("../Imagenes/Menu/Principal1.png"))));
+        imagenFondo = new JLabel();
+        imagenFondo.setIcon(new ImageIcon(Principal.class.getResource("../Imagenes/Menu/fondoMapas.png")));
+        imagenFondo.setSize(getSize());
+        add(imagenFondo);
+
+        UIManager.put("ComboBox.background", new ColorUIResource(UIManager.getColor("TextField.background")));
+        UIManager.put("ComboBox.foreground", new ColorUIResource(UIManager.getColor("TextField.foreground")));
+        UIManager.put("ComboBox.selectionBackground", new ColorUIResource(Color.GREEN));
+        UIManager.put("ComboBox.selectionForeground", new ColorUIResource(Color.WHITE));
     }
 
 }
