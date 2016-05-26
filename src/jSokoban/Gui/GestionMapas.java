@@ -218,8 +218,9 @@ public class GestionMapas extends javax.swing.JFrame {
 
     /**
      * Obtiene el Numero de Mapa correspondiente al primer Mapa en el Sistema
+     *
      * @param pos
-     * @return 
+     * @return
      */
     public static int obtenerNumeroMapa(int pos) {
         try {
@@ -234,9 +235,23 @@ public class GestionMapas extends javax.swing.JFrame {
 
         return -1;
     }
-    
-    
 
+    /**
+     * Identificar codigo del mapa a guardar
+     * @return 
+     */
+    public static int asignarNumeroMapa() {
+
+        String[] mapDispo = mapasDisponibles();
+
+        if (mapDispo != null) {
+            int ultimo = obtenerNumeroMapa(mapDispo.length - 1);
+            return ultimo + 1;
+        }
+
+        return 0;
+
+    }
 
     public static String[] partidasGuardadas() {
         String[] partidas = null;
