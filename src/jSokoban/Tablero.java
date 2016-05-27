@@ -760,7 +760,10 @@ public class Tablero extends JPanel {
             BufferedReader br = new BufferedReader(new FileReader(new File(ruta)));
 
             for (int i = 0; i < 5; i++) {
-                ranking.add(Integer.parseInt(br.readLine()));
+                if (br.readLine() != null ){
+                   ranking.add(Integer.parseInt(br.readLine().replaceAll("\\D+", ""))); 
+                }
+                
 
             }
         } catch (FileNotFoundException ex) {
