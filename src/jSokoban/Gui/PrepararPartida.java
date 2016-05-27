@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jSokoban.Gui;
 
 import jSokoban.ArchivoControlador;
@@ -15,8 +10,12 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
+ * Interfaz grafica para la gestion de partidas
  *
- * @author gusta
+ * @since 27-05-2016
+ * @version 0.9
+ * @author alejo
+ * @author gaso
  */
 public class PrepararPartida extends javax.swing.JFrame {
 
@@ -24,7 +23,7 @@ public class PrepararPartida extends javax.swing.JFrame {
     private JLabel imagenFondo;
 
     /**
-     * Creates new form PrepararPartida
+     * Constructor que inicializa la interfaz grafica
      */
     public PrepararPartida() {
         initComponents();
@@ -178,6 +177,11 @@ public class PrepararPartida extends javax.swing.JFrame {
     private javax.swing.JLabel bRegresar;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Lanza el primer mapa ( ejecucion modo historia )
+     *
+     * @return true si puede identificar el nivel , false sino
+     */
     public boolean cargarNuevaPartida() {
         int numPartida = GestionMapas.obtenerNumeroMapa(0);
 
@@ -188,19 +192,30 @@ public class PrepararPartida extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Permite cargar un mapa aleatorio
+     *
+     * @return true si puede identificar el nivel , false sino
+     */
     public boolean cargarMapaAleatorio() {
         Random rng = new Random();
         Integer mapaAleatorio;
         try {
             mapaAleatorio = rng.nextInt(GestionMapas.numMapas());
             System.out.println("Aleatorio? = " + mapaAleatorio);
-            return cargarNivel(GestionMapas.obtenerNumeroMapa(mapaAleatorio));            
+            return cargarNivel(GestionMapas.obtenerNumeroMapa(mapaAleatorio));
         } catch (Exception e) {
             Logger.getLogger(PrepararPartida.class.getName()).log(Level.SEVERE, "No se logro identificar un mapa aleatorio valido");
             return cargarNivel(1);
         }
     }
 
+    /**
+     * Cargar nivel especifico
+     *
+     * @param nivel nivel a cargar
+     * @return true si puede cargar el menu - false sino
+     */
     public boolean cargarNivel(int nivel) {
         System.out.println("nivel a cargar  = " + nivel);
         ventanaJuego = new Partida(nivel);
@@ -209,6 +224,10 @@ public class PrepararPartida extends javax.swing.JFrame {
         return true;
     }
 
+    /**
+     * Permite cargar una partida guardada ubicandola en un listado de partidas
+     * disponibles.
+     */
     private void cargarPartidaGuardada() {
         String[] partidas = GestionMapas.partidasGuardadas();
         System.out.println("partidas = " + partidas.length);
@@ -222,7 +241,7 @@ public class PrepararPartida extends javax.swing.JFrame {
                 String partida = ArchivoControlador.cargarArchivo(rutaArchivo);
 
                 System.out.println("partida = \n" + partida);
-                
+
                 ventanaJuego = new Partida(partida);
                 ventanaJuego.setVisible(true);
                 this.setVisible(false);
@@ -245,9 +264,12 @@ public class PrepararPartida extends javax.swing.JFrame {
         add(imagenFondo);
     }
 
+    /**
+     * Devolver a menu principal
+     */
     private void regresarMenu() {
         this.setVisible(false);
-        Principal menuPrincipal = new Principal();         
+        Principal menuPrincipal = new Principal();
         menuPrincipal.setVisible(true);
     }
 

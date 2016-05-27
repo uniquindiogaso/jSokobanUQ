@@ -23,8 +23,9 @@ public class Partida extends javax.swing.JFrame {
     TableroControlador tab;
 
     /**
-     * Constructor que inicializa
-     * @param nivel 
+     * Constructor que inicializa la partida en base a un numero de nivel
+     *
+     * @param nivel nivel a cargar
      */
     public Partida(int nivel) {
         initComponents();
@@ -38,6 +39,11 @@ public class Partida extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Constructor que inicializa la partida en base a un mapa raw
+     *
+     * @param mapa representacion en string de un mapa (sin separador)
+     */
     public Partida(String mapa) {
         initComponents();
         setLocationRelativeTo(null);

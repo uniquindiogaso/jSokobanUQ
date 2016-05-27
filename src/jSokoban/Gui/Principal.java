@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jSokoban.Gui;
 
 import jSokoban.Actores.Actores;
@@ -10,15 +5,19 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 /**
+ * Interfaz Principal del VideoJuego
  *
- * @author gusta
+ * @since 27-05-2016
+ * @version 0.9
+ * @author alejo
+ * @author gaso
  */
 public class Principal extends javax.swing.JFrame {
 
     private JLabel imagenFondo;
 
     /**
-     * Creates new form Principal
+     * Constructor que inicializa la interfaz y todos sus componentes
      */
     public Principal() {
         initComponents();
@@ -26,7 +25,6 @@ public class Principal extends javax.swing.JFrame {
         setSize(728, 645);
         asignarFondo();
         setLocationRelativeTo(null);
-        
 
     }
 
@@ -117,9 +115,9 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_bJugarMouseClicked
 
     private void bMapasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bMapasMouseClicked
-       setVisible(false);
-       GestionMapas mapas = new GestionMapas();
-       mapas.setVisible(true);
+        setVisible(false);
+        GestionMapas mapas = new GestionMapas();
+        mapas.setVisible(true);
     }//GEN-LAST:event_bMapasMouseClicked
 
     /**
