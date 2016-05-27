@@ -35,7 +35,7 @@ public class ConstructorMapas extends javax.swing.JFrame {
     int TAMANIO_IMAGEN = 25;
     int MIN_X = 75;
     int MIN_Y = 20;
-    TableroControlador tab;
+    
 
     private boolean borradorActivo = false;
 
@@ -229,9 +229,7 @@ public class ConstructorMapas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bComprobarMapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bComprobarMapaActionPerformed
-   String mapa= tab.matrizToString();
-        System.out.println(mapa);
-
+      
     }//GEN-LAST:event_bComprobarMapaActionPerformed
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
@@ -300,6 +298,7 @@ public class ConstructorMapas extends javax.swing.JFrame {
 
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
         if (guardarMapa()) {
+            
             guardado = true;
             lMensaje.setText("Mapa guardado correctamente.");
         }
@@ -458,6 +457,7 @@ public class ConstructorMapas extends javax.swing.JFrame {
         for (int i = 0; i < (maxMatrizJ + 1); i++) {
             for (int j = 0; j < (maxMatrizI + 1); j++) {
                 res += matrizLienzo[i][j] == null ? Actores.VACIO.getC() : matrizLienzo[i][j];
+             
                 //Agregar separador menos al final de cada linea
                 if (j != maxMatrizI) {
                     res += TableroControlador.SEPARADOR;
@@ -466,11 +466,15 @@ public class ConstructorMapas extends javax.swing.JFrame {
             //agregar Salto de linea
             res += "\n";
         }
+        
+        
         System.out.println("res = \n" + res);
         //return true;
         return ArchivoControlador.guardarArchivo(ruta, res);
 
     }
+    
+    
 
     private void regresarPrincipal() {
         setVisible(false);

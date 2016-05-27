@@ -5,11 +5,13 @@
  */
 package jSokoban.Gui;
 
+import jSokoban.ArchivoControlador;
 import jSokoban.Solucionador;
 import java.awt.Component;
 import javax.swing.JFrame;
 import jSokoban.Tablero;
 import jSokoban.TableroControlador;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,7 +20,7 @@ import jSokoban.TableroControlador;
 public class Partida extends javax.swing.JFrame {
 
     Tablero board;
-    Solucionador sol;
+    ArchivoControlador archivo;
     TableroControlador tab;
 
     public Partida(int nivel) {
@@ -64,28 +66,28 @@ public class Partida extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        bRehacer2 = new javax.swing.JLabel();
+        btnGuardar = new javax.swing.JLabel();
         bDeshacer = new javax.swing.JLabel();
         bRehacer = new javax.swing.JLabel();
-        bRehacer3 = new javax.swing.JLabel();
-        bRehacer4 = new javax.swing.JLabel();
+        bSolucionador = new javax.swing.JLabel();
+        btnReco = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 51, 51));
         getContentPane().setLayout(null);
 
-        bRehacer2.setBackground(new java.awt.Color(51, 51, 51));
-        bRehacer2.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        bRehacer2.setForeground(java.awt.Color.red);
-        bRehacer2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Constructor/guardar.png"))); // NOI18N
-        bRehacer2.setText("G");
-        bRehacer2.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnGuardar.setBackground(new java.awt.Color(51, 51, 51));
+        btnGuardar.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        btnGuardar.setForeground(java.awt.Color.red);
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Constructor/guardar.png"))); // NOI18N
+        btnGuardar.setText("G");
+        btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                bRehacer2MouseClicked(evt);
+                btnGuardarMouseClicked(evt);
             }
         });
-        getContentPane().add(bRehacer2);
-        bRehacer2.setBounds(280, 10, 30, 32);
+        getContentPane().add(btnGuardar);
+        btnGuardar.setBounds(280, 10, 30, 32);
 
         bDeshacer.setBackground(new java.awt.Color(51, 51, 51));
         bDeshacer.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
@@ -111,37 +113,37 @@ public class Partida extends javax.swing.JFrame {
         getContentPane().add(bRehacer);
         bRehacer.setBounds(50, 10, 30, 24);
 
-        bRehacer3.setBackground(new java.awt.Color(51, 51, 51));
-        bRehacer3.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        bRehacer3.setForeground(java.awt.Color.red);
-        bRehacer3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/guru.png"))); // NOI18N
-        bRehacer3.addMouseListener(new java.awt.event.MouseAdapter() {
+        bSolucionador.setBackground(new java.awt.Color(51, 51, 51));
+        bSolucionador.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        bSolucionador.setForeground(java.awt.Color.red);
+        bSolucionador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/guru.png"))); // NOI18N
+        bSolucionador.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                bRehacer3MouseClicked(evt);
+                bSolucionadorMouseClicked(evt);
             }
         });
-        getContentPane().add(bRehacer3);
-        bRehacer3.setBounds(90, 0, 50, 40);
+        getContentPane().add(bSolucionador);
+        bSolucionador.setBounds(90, 0, 50, 40);
 
-        bRehacer4.setBackground(new java.awt.Color(51, 51, 51));
-        bRehacer4.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        bRehacer4.setForeground(java.awt.Color.red);
-        bRehacer4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/restart.png"))); // NOI18N
-        bRehacer4.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnReco.setBackground(new java.awt.Color(51, 51, 51));
+        btnReco.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        btnReco.setForeground(java.awt.Color.red);
+        btnReco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/restart.png"))); // NOI18N
+        btnReco.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                bRehacer4MouseClicked(evt);
+                btnRecoMouseClicked(evt);
             }
         });
-        getContentPane().add(bRehacer4);
-        bRehacer4.setBounds(190, 0, 40, 40);
+        getContentPane().add(btnReco);
+        btnReco.setBounds(190, 0, 40, 40);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bRehacer4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bRehacer4MouseClicked
+    private void btnRecoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRecoMouseClicked
         board.reiniciarNivel();
         board.repaint();
-    }//GEN-LAST:event_bRehacer4MouseClicked
+    }//GEN-LAST:event_btnRecoMouseClicked
 
     private void bDeshacerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bDeshacerMouseClicked
         board.reconstruirMovimiento(-1);
@@ -151,15 +153,28 @@ public class Partida extends javax.swing.JFrame {
         board.reconstruirMovimiento(1);
     }//GEN-LAST:event_bRehacerMouseClicked
 
-    private void bRehacer2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bRehacer2MouseClicked
-        board.iMovimientos();
-    }//GEN-LAST:event_bRehacer2MouseClicked
+    private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
+        long num= System.currentTimeMillis();
+        String ruta = System.getProperty("user.dir") + java.io.File.separator + "Partidas" + java.io.File.separator + "mapa" + num + ".txt";
+        if(ArchivoControlador.guardarArchivo(ruta, tab.matrizToString())){
+            
+            JOptionPane.showMessageDialog(null, "Partida Guardada");
+        }else{
+             JOptionPane.showMessageDialog(null, "No se pudo guardar la partida");
+        }
+    }//GEN-LAST:event_btnGuardarMouseClicked
+
 
     private void bRehacer3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bRehacer3MouseClicked
         //sol = new Solucionador(tab.matrizToString());
-        board.ejecutarSolucionador();
+        //board.ejecutarSolucionador();
 
     }//GEN-LAST:event_bRehacer3MouseClicked
+
+    private void bSolucionadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bSolucionadorMouseClicked
+        board.ejecutarSolucionador();
+    }//GEN-LAST:event_bSolucionadorMouseClicked
+
 
     /**
      * @param args the command line arguments
@@ -199,8 +214,8 @@ public class Partida extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bDeshacer;
     private javax.swing.JLabel bRehacer;
-    private javax.swing.JLabel bRehacer2;
-    private javax.swing.JLabel bRehacer3;
-    private javax.swing.JLabel bRehacer4;
+    private javax.swing.JLabel bSolucionador;
+    private javax.swing.JLabel btnGuardar;
+    private javax.swing.JLabel btnReco;
     // End of variables declaration//GEN-END:variables
 }
