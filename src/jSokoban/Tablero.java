@@ -25,6 +25,8 @@ import jSokoban.Assets.Elemento;
 import jSokoban.Gui.Partida;
 import jSokoban.Gui.PrepararPartida;
 import jSokoban.Gui.Principal;
+import jSokoban.backtracking.EstadoJuego;
+import jSokoban.backtracking.SolucionadorMagico;
 import javax.swing.JOptionPane;
 
 public class Tablero extends JPanel {
@@ -51,7 +53,7 @@ public class Tablero extends JPanel {
     private int movimientosTotales;
     private int movimientoActual;
     private int movimientosPuntaje;
-    
+
     private int puntajeTotal;
     //Jugador
     private Avatar avatar;
@@ -152,10 +154,10 @@ public class Tablero extends JPanel {
     public final void iniciarMundo(String mapa) {
         //Iniciar Imagenes
         Assets.init();
-        
+
         //Construir Tablero
         tablero = new TableroControlador(mapa);
-        
+
         tablero.setMatrizJuego(tablero.toMatriz(mapa));
 
         int x = MARGEN;
@@ -190,7 +192,7 @@ public class Tablero extends JPanel {
             } else if (elementoTablero == 'A') {
                 avatar = new Avatar(x, y);
                 x += TAMANIO_ASSETS;
-            } else if (elementoTablero == '*') {
+            } else if (elementoTablero == '+') {
                 objetivo = new Objetivo(x, y);
                 objetivos.add(objetivo);
                 caja = new Caja(x, y);
@@ -212,7 +214,7 @@ public class Tablero extends JPanel {
     }
 
     public void construirMundo(Graphics g) {
-        
+
         g.setColor(new Color(101, 159, 62));
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
@@ -223,14 +225,11 @@ public class Tablero extends JPanel {
         mundo.addAll(cajas);
         mundo.add(avatar);
 
-        
         for (int i = 0; i < mundo.size(); i++) {
 
             Actor elemento = (Actor) mundo.get(i);
             g.drawImage(elemento.getImagen(), elemento.getX(), elemento.getY(), TAMANIO_ASSETS, TAMANIO_ASSETS, this);
 
-            
-            
             //Si se ha completado todas las cajas
             if (completo) {
                 //@TODO Se siente lag cuando se pone una fuente al G
@@ -639,7 +638,6 @@ public class Tablero extends JPanel {
      *
      * @param caja
      */
-
     public void noHaySolucion(Caja caja) {
 
         if (verificarColisionMuro(caja, COLISION_ABAJO) && verificarColisionMuro(caja, COLISION_DER)) {
@@ -684,18 +682,15 @@ public class Tablero extends JPanel {
             reiniciarNivel();
             System.out.println(nivel);
 
-            
-            
-        if(nivel==6){
-        JOptionPane.showMessageDialog(null, "Juego terminado!!!\nPuntaje total: "+puntajeTotal);
-        Principal principal = new Principal();
-      
-        principal.setVisible(true);
-        
-        
-        }else{
-        repaint();
-        }
+            if (nivel == 6) {
+                JOptionPane.showMessageDialog(null, "Juego terminado!!!\nPuntaje total: " + puntajeTotal);
+                Principal principal = new Principal();
+
+                principal.setVisible(true);
+
+            } else {
+                repaint();
+            }
         }
     }
 
@@ -716,10 +711,10 @@ public class Tablero extends JPanel {
      */
     public void calcularPuntaje() {
         int tamanoTotal = tablero.getMatrizJuego().length * tablero.getMatrizJuego()[0].length;
-        int puntajeParcial =tamanoTotal - (movimientosPuntaje + 1);
+        int puntajeParcial = tamanoTotal - (movimientosPuntaje + 1);
         JOptionPane.showMessageDialog(null, "Puntaje de la partida:" + " " + puntajeParcial);
-        movimientosPuntaje=0;
-        puntajeTotal+=puntajeParcial;
+        movimientosPuntaje = 0;
+        puntajeTotal += puntajeParcial;
     }
 
     /**
@@ -736,6 +731,8 @@ public class Tablero extends JPanel {
         if (completo) {
             completo = false;
         }
+        repaint();
+        //matriz();
     }
 
     /**
@@ -788,4 +785,75 @@ public class Tablero extends JPanel {
             }
         }
     }
+
+    public void ejecutarSolucionador() {
+        EstadoJuego estadoActual = EstadoJuego.interpretarMapa(tablero.getMatrizJuego());
+        
+        SolucionadorMagico s = new SolucionadorMagico(this, estadoActual, 10);
+        s.start();
+       
+    }
+
+    public void mostrarMundoAutomatico(String mapa) {
+        cajas.clear();
+        reconstruirMundoBackTracking(mapa);
+        repaint();      
+    }
+
+    public final void reconstruirMundoBackTracking(String mapa) {
+
+        tablero.setMatrizJuego(tablero.toMatriz(mapa));
+
+        int x = MARGEN;
+        int y = MARGEN;
+
+        Muro muro;
+        Caja caja;
+        Objetivo objetivo;
+
+        for (int i = 0; i < mapa.length(); i++) {
+
+            char elementoTablero = mapa.charAt(i);
+
+            if (elementoTablero == '\n') {
+                y += TAMANIO_ASSETS;
+                if (this.anchoTablero < x) {
+                    this.anchoTablero = x;
+                }
+                x = MARGEN;
+            } else if (elementoTablero == 'M') {
+                muro = new Muro(x, y);
+                muros.add(muro);
+                x += TAMANIO_ASSETS;
+            } else if (elementoTablero == 'C') {
+                caja = new Caja(x, y);
+                cajas.add(caja);
+                x += TAMANIO_ASSETS;
+            } else if (elementoTablero == 'D') {
+                objetivo = new Objetivo(x, y);
+                objetivos.add(objetivo);
+                x += TAMANIO_ASSETS;
+            } else if (elementoTablero == 'A') {
+                avatar = new Avatar(x, y);
+                x += TAMANIO_ASSETS;
+            } else if (elementoTablero == '+') {
+                objetivo = new Objetivo(x, y);
+                objetivos.add(objetivo);
+                caja = new Caja(x, y);
+                cajas.add(caja);
+                x += TAMANIO_ASSETS;
+
+            } else if (elementoTablero == '*') {
+                objetivo = new Objetivo(x, y);
+                objetivos.add(objetivo);
+                avatar = new Avatar(x, y);
+                x += TAMANIO_ASSETS;
+            } else if (elementoTablero == 'V') {
+                x += TAMANIO_ASSETS;
+            }
+
+            altoTablero = y;
+        }
+
+    }  
 }

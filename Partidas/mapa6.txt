@@ -1,0 +1,7 @@
+V,V,V,V,V,V,V,V,V,V
+V,V,V,V,V,V,V,V,V,V
+V,V,V,V,V,M,M,M,M,M
+V,V,V,V,V,M,C,V,C,M
+V,V,V,V,V,M,V,V,V,M
+V,V,V,V,V,M,V,D,V,M
+V,V,V,V,V,M,M,M,M,M
