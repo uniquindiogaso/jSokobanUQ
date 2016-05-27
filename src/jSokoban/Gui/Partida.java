@@ -37,7 +37,7 @@ public class Partida extends javax.swing.JFrame {
         
         setLocationRelativeTo(null);
         
-        setTitle("JSokobanUQ Nivel " + nivel);
+        setTitle("JSokobanUQ");
 
     }
     

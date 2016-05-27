@@ -22,7 +22,9 @@ import java.util.Collections;
 import java.util.LinkedList;
 import javax.swing.JPanel;
 import jSokoban.Assets.Elemento;
+import jSokoban.Gui.Partida;
 import jSokoban.Gui.PrepararPartida;
+import jSokoban.Gui.Principal;
 import javax.swing.JOptionPane;
 
 public class Tablero extends JPanel {
@@ -49,7 +51,8 @@ public class Tablero extends JPanel {
     private int movimientosTotales;
     private int movimientoActual;
     private int movimientosPuntaje;
-
+    
+    private int puntajeTotal;
     //Jugador
     private Avatar avatar;
 
@@ -149,7 +152,7 @@ public class Tablero extends JPanel {
     public final void iniciarMundo(String mapa) {
         //Iniciar Imagenes
         Assets.init();
-
+        
         //Construir Tablero
         tablero = new TableroControlador(mapa);
         
@@ -209,7 +212,7 @@ public class Tablero extends JPanel {
     }
 
     public void construirMundo(Graphics g) {
-
+        
         g.setColor(new Color(101, 159, 62));
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
@@ -220,11 +223,14 @@ public class Tablero extends JPanel {
         mundo.addAll(cajas);
         mundo.add(avatar);
 
+        
         for (int i = 0; i < mundo.size(); i++) {
 
             Actor elemento = (Actor) mundo.get(i);
             g.drawImage(elemento.getImagen(), elemento.getX(), elemento.getY(), TAMANIO_ASSETS, TAMANIO_ASSETS, this);
 
+            
+            
             //Si se ha completado todas las cajas
             if (completo) {
                 //@TODO Se siente lag cuando se pone una fuente al G
@@ -233,7 +239,7 @@ public class Tablero extends JPanel {
                 int yCenter = ((getHeight()) / 2) + 37;
 
                 g.setColor(new Color(0, 0, 0));
-                g.drawString("¡Nivel Completo!", xCenter, yCenter);
+                //g.drawString("¡Nivel Completo!", xCenter, yCenter);
 
             }
 
@@ -675,9 +681,21 @@ public class Tablero extends JPanel {
             calcularPuntaje();
             completo = true;
             nivel++;
-            PrepararPartida pre = new PrepararPartida();
-           pre.cargarNivel(nivel);
-            repaint();
+            reiniciarNivel();
+            System.out.println(nivel);
+
+            
+            
+        if(nivel==6){
+        JOptionPane.showMessageDialog(null, "Juego terminado!!!\nPuntaje total: "+puntajeTotal);
+        Principal principal = new Principal();
+      
+        principal.setVisible(true);
+        
+        
+        }else{
+        repaint();
+        }
         }
     }
 
@@ -697,9 +715,11 @@ public class Tablero extends JPanel {
      * metodo para calcular el puntaje
      */
     public void calcularPuntaje() {
-        int total = tablero.getMatrizJuego().length * tablero.getMatrizJuego()[0].length;
-        JOptionPane.showMessageDialog(null, "Partida completada su puntaje es:" + " " + (total - (movimientosPuntaje + 1)));
-
+        int tamanoTotal = tablero.getMatrizJuego().length * tablero.getMatrizJuego()[0].length;
+        int puntajeParcial =tamanoTotal - (movimientosPuntaje + 1);
+        JOptionPane.showMessageDialog(null, "Puntaje de la partida:" + " " + puntajeParcial);
+        movimientosPuntaje=0;
+        puntajeTotal+=puntajeParcial;
     }
 
     /**
