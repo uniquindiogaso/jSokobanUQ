@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jSokoban;
 
 import java.awt.image.BufferedImage;
@@ -12,19 +7,15 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
+ * Clase que identifica e instancia las imagenes que se emplean en el desarrollo
+ * del juego a nivel de tablero
  *
- * @author josed
+ * @since 27-05-2016
+ * @version 0.9
+ * @author alejo
+ * @author gaso
  */
 public class Assets {
-
-    public enum Elemento {
-        AVATAR('A'), MURO('M'), CAJA('C'), DESTINO('D'), CAJA_OBJETIVO('A'), JUGADOR_OBJETIVO('+');
-        private final Character valor;
-
-        private Elemento(Character valor) {
-            this.valor = valor;
-        }
-    };
 
     public static int ALTO_ASSET = 32;
     public static int ANCHO_ASSET = 32;
@@ -53,10 +44,10 @@ public class Assets {
             imgAvatarDerecha = ImageIO.read(Assets.class.getResource("Imagenes/Avatar_der.png"));
             imgAvatarArriba = ImageIO.read(Assets.class.getResource("Imagenes/Avatar_arriba.png"));
 
-            imgCaja = ImageIO.read(Assets.class.getResource("Imagenes/Caja.png"));            
-            imgMuro = ImageIO.read(Assets.class.getResource("Imagenes/Muro.png"));    
+            imgCaja = ImageIO.read(Assets.class.getResource("Imagenes/Caja.png"));
+            imgMuro = ImageIO.read(Assets.class.getResource("Imagenes/Muro.png"));
             imgDestino = ImageIO.read(Assets.class.getResource("Imagenes/Destino.png"));
-            
+
         } catch (IOException ex) {
             Logger.getLogger(Assets.class.getName()).log(Level.SEVERE, "No se cargo el recurso ", ex);
         }

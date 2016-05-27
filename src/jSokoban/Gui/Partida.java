@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jSokoban.Gui;
 
 import jSokoban.ArchivoControlador;
@@ -13,8 +8,13 @@ import jSokoban.TableroControlador;
 import javax.swing.JOptionPane;
 
 /**
+ * Interfaz grafica que pinta el videojuego - La magia esta presente en esta
+ * clase
  *
- * @author gusta
+ * @since 27-05-2016
+ * @version 0.9
+ * @author alejo
+ * @author gaso
  */
 public class Partida extends javax.swing.JFrame {
 
@@ -22,16 +22,19 @@ public class Partida extends javax.swing.JFrame {
     ArchivoControlador archivo;
     TableroControlador tab;
 
+    /**
+     * Constructor que inicializa
+     * @param nivel 
+     */
     public Partida(int nivel) {
         initComponents();
 
-        board = new Tablero(nivel,this);
+        board = new Tablero(nivel, this);
         tab = new TableroControlador(nivel);
         add(board);
 
         setTitle("JSokobanUQ");
         redimensionarPantalla();
-        
 
     }
 
@@ -39,7 +42,7 @@ public class Partida extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
 
-        board = new Tablero(mapa,this);
+        board = new Tablero(mapa, this);
         tab = new TableroControlador(mapa);
         add(board);
 
@@ -147,10 +150,10 @@ public class Partida extends javax.swing.JFrame {
     }//GEN-LAST:event_bRehacerMouseClicked
 
     private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
-       
+
         long num = System.currentTimeMillis();
         String ruta = System.getProperty("user.dir") + java.io.File.separator + "Partidas" + java.io.File.separator + "mapa" + num + ".txt";
-               
+
         if (ArchivoControlador.guardarArchivo(ruta, tab.matrizToStringSeparador())) {
 
             JOptionPane.showMessageDialog(null, "Partida Guardada");

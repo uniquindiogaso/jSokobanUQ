@@ -1,16 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jSokoban;
 
 /**
+ * Clase para que el control Movimientos dentro
+ * del videojuego , permitiendo deshacer y rehacer movimientos.
  *
- * @author gusta
+ * @since 27-05-2016
+ * @version 0.9
+ * @author alejo
+ * @author gaso
  */
 public class Movimiento {
-    
+
+    //Representacion matriz de movimientos dentro del tablero
     private String tablero;
     private int puntaje;
 
@@ -37,12 +38,7 @@ public class Movimiento {
 
     @Override
     public String toString() {
-        return tablero+"\n";
+        return tablero + "\n";
     }
-    
-    
-    
-    
-    
-    
+
 }

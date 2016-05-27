@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jSokoban;
 
 import jSokoban.Gui.GestionMapas;
@@ -20,13 +15,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Manejador de Entrada/Salida para Archivos
  *
- * @author gusta
+ * @since 27-05-2016
+ * @version 0.9
+ * @author alejo
+ * @author gaso
  */
 public class ArchivoControlador {
 
     /**
-     * Guarda Archivo
+     * Guardar Archivo en Ruta Especifica
      *
      * @param ruta String con ruta y nombre de archivo
      * @param contenido Contenido que e va a almacenar
@@ -48,6 +47,12 @@ public class ArchivoControlador {
 
     }
 
+    /**
+     * Cargar Archivo desde ruta especifica
+     *
+     * @param ruta Ruta absoluta de archivo
+     * @return contenido de archivo
+     */
     public static String cargarArchivo(String ruta) {
         File mapa;
         String res = "";
@@ -74,11 +79,12 @@ public class ArchivoControlador {
     }
 
     /**
-     * Cargar ARchivo de Mapa de una ubicacion a la Carpeta de Mapas del
+     * Cargar Archivo de Mapa de una ubicacion a la Carpeta de Mapas del
      * VideoJuego
      *
-     * @param rutaOrigen
-     * @return 
+     * @param rutaOrigen Ruta absoluta de archivo
+     * @return true si importa correctamente el mapa , false si no se logra
+     * importar
      */
     public static boolean importarMapa(String rutaOrigen) {
         try {
@@ -102,6 +108,11 @@ public class ArchivoControlador {
         return false;
     }
 
+    /**
+     * Eliminar archivo especifico
+     * @param ruta Ruta absoluta de archivo
+     * @return true si el archivo es eliminado con exito , false si no
+     */
     public static boolean eliminarArchivo(String ruta) {
         File archivo;
         try {

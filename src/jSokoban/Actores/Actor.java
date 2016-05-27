@@ -1,24 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jSokoban.Actores;
 
 import java.awt.Image;
 import jSokoban.Tablero;
 
 /**
+ * Clase que representa un objeto dentro de un mundo
  *
- * @author gusta
+ * @since 27-05-2016
+ * @version 0.9
+ * @author alejo
+ * @author gaso
  */
 public class Actor {
-    
 
     private int x;
     private int y;
     private Image imagen;
 
+    /**
+     * Constructor que inicializa en determinada posicion el actor/objeto
+     *
+     * @param x
+     * @param y
+     */
     public Actor(int x, int y) {
         this.x = x;
         this.y = y;
@@ -48,21 +52,45 @@ public class Actor {
         this.y = y;
     }
 
+    /**
+     * Detectar colision con actor al lado izquierdo
+     *
+     * @param actor objeto que se evalua
+     * @return true si hay colision - false si no hay colision
+     */
     public boolean colisionIzquierda(Actor actor) {
-        return ((this.getX() - Tablero.TAMANIO_ASSETS) == actor.getX()) &&
-                (this.getY() == actor.getY());
+        return ((this.getX() - Tablero.TAMANIO_ASSETS) == actor.getX())
+                && (this.getY() == actor.getY());
     }
 
+    /**
+     * Detectar colision con actor al lado derecho
+     *
+     * @param actor objeto que se evalua
+     * @return true si hay colision - false si no hay colision
+     */
     public boolean colisionDerecha(Actor actor) {
         return ((this.getX() + Tablero.TAMANIO_ASSETS) == actor.getX())
                 && (this.getY() == actor.getY());
     }
 
+    /**
+     * Detectar colision con actor por encima de el.
+     *
+     * @param actor objeto que se evalua
+     * @return true si hay colision - false si no hay colision
+     */
     public boolean colisionArriba(Actor actor) {
-        return ((this.getY() - Tablero.TAMANIO_ASSETS) == actor.getY()) &&
-                (this.getX() == actor.getX());
+        return ((this.getY() - Tablero.TAMANIO_ASSETS) == actor.getY())
+                && (this.getX() == actor.getX());
     }
 
+    /**
+     * Detectar colision con actor por debajo de el.
+     *
+     * @param actor objeto que se evalua
+     * @return true si hay colision - false si no hay colision
+     */
     public boolean colisionAbajo(Actor actor) {
         return ((this.getY() + Tablero.TAMANIO_ASSETS) == actor.getY())
                 && (this.getX() == actor.getX());

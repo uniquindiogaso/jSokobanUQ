@@ -8,6 +8,15 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Clase para la Configurar del Tablero de Juego permitiendo dinamicamente
+ * construir la matiz que representa el videojuego.
+ *
+ * @since 27-05-2016
+ * @version 0.9
+ * @author alejo
+ * @author gaso
+ */
 public class TableroControlador {
 
     public char MURO = 'M';
@@ -29,6 +38,12 @@ public class TableroControlador {
     private String rutaMapa;
     private int nivel;
 
+    /**
+     * Constructor que recibe el mapa representado en una Cadena y con el
+     * construye la matriz correspondiente.
+     *
+     * @param mapa Representacion en cadena de la matriz
+     */
     public TableroControlador(String mapa) {
 
         //Tablero de Prueba
@@ -41,6 +56,13 @@ public class TableroControlador {
 
     }
 
+    /**
+     * Constructor del Nivel en base al numero de nivel; este determinara el
+     * archivo que contiene el mapa de acuerdo al numero de nivel que se quiera
+     * cargar.
+     *
+     * @param nivel numero de nivel
+     */
     public TableroControlador(int nivel) {
         this.rutaMapa = PATH_MAPAS + "mapa" + nivel + ".txt";
 
@@ -58,6 +80,9 @@ public class TableroControlador {
         }
     }
 
+    /**
+     * Lectura de Archivo que contiene el nivel.
+     */
     private void configTablero() {
         File mapa = new File(rutaMapa);
 
@@ -83,14 +108,6 @@ public class TableroControlador {
         } catch (IOException ex) {
             Logger.getLogger(Tablero.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-//        
-//        for (int i = 0; i < matrizJuego.length; i++) {
-//            for (int j = 0; j < matrizJuego[i].length; j++) {
-//                System.out.print(matrizJuego[i][j] + " \t");
-//            }
-//            System.out.println("");
-//        }
     }
 
     public Character[][] getMatrizJuego() {
@@ -166,6 +183,12 @@ public class TableroControlador {
         return false;
     }
 
+    /**
+     * Analiza el tamaño del Mapa para saber como construir la matriz de
+     * elementos.
+     *
+     * @param mapa representacion en string del mapa
+     */
     public void tamanioPartida(String mapa) {
         String[] lineas = mapa.split("\n");
         int filas = 0;
@@ -190,9 +213,9 @@ public class TableroControlador {
     /**
      * Identifica elemento del siguiente movimiento
      *
-     * @param x
-     * @param y
-     * @return
+     * @param x Posicion en X
+     * @param y Posicion en Y
+     * @return Caracter que repreenta el siguiente movimiento
      */
     public char movimientoSiguiente(int x, int y) {
         try {
@@ -210,18 +233,15 @@ public class TableroControlador {
         }
     }
 
-    public void obtenerElemento(int x, int y) {
-
-        try {
-            int posMatrizI = (y + yMin) / Assets.ALTO_ASSET;
-            int posMatrizJ = (x + xMin) / Assets.ANCHO_ASSET;
-
-            System.out.println("(" + (x + xMin) + "," + (y + yMin) + ") Elemento " + getMatrizJuego()[posMatrizI][posMatrizJ]);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.err.println("Fuera de la Matriz ...");
-        }
-    }
-
+    /**
+     * Actualiza la Matriz que represanta el juego
+     * de acuerdo a las posiciones de movimiento
+     * @param xViaja posicion en x anterior
+     * @param yVieja posicion en y anterior
+     * @param xNueva posicion en x Nueva
+     * @param yNueva posicion en Y Nueva
+     * @param nuevoValor valor que se colocará en posicion nueva
+     */
     public void actualizarMatriz(int xViaja, int yVieja, int xNueva, int yNueva, Character nuevoValor) {
 
         try {
@@ -257,6 +277,10 @@ public class TableroControlador {
 
     }
 
+    /**
+     * Convertir Matriz de Tablero en un String raw
+     * @return cadena que representa el tablero 
+     */
     public String matrizToString() {
         String mapa = "";
         Character[][] matrizJ = getMatrizJuego();
@@ -269,26 +293,34 @@ public class TableroControlador {
         return mapa;
     }
 
+    /**
+     * Convertir Matriz de Tablero en un String con Separador
+     * @return cadena que representa el tablero 
+     */
     public String matrizToStringSeparador() {
         String mapa = "";
         Character[][] matrizJ = getMatrizJuego();
         for (int i = 0; i < matrizJ.length; i++) {
             for (int j = 0; j < matrizJ[i].length; j++) {
-                
-                if (j == matrizJ[i].length -1) {
-                    mapa += matrizJ[i][j];                    
-                }else{
-                    mapa += matrizJ[i][j]+TableroControlador.SEPARADOR;
+
+                if (j == matrizJ[i].length - 1) {
+                    mapa += matrizJ[i][j];
+                } else {
+                    mapa += matrizJ[i][j] + TableroControlador.SEPARADOR;
                 }
-                
+
             }
             mapa += "\n";
         }
-        
 
         return mapa;
     }
 
+    /**
+     * Convertir mapa raw en Matriz de Caracteres
+     * @param mapa mapa raw
+     * @return matriz de Chars 
+     */
     public Character[][] toMatriz(String mapa) {
         Character[][] matrizJ = new Character[matrizJuego.length][matrizJuego[0].length];
 

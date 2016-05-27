@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jSokoban.Gui;
 
 import jSokoban.Actores.Actores;
@@ -26,8 +21,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;
 
 /**
+ * Diseñador de Mapas
  *
- * @author gusta
+ * @since 27-05-2016
+ * @version 0.9
+ * @author alejo
+ * @author gaso
  */
 public class ConstructorMapas extends javax.swing.JFrame {
 
@@ -46,7 +45,6 @@ public class ConstructorMapas extends javax.swing.JFrame {
     int posMI = -1;
     int posMJ = -1;
 
-    //Equivale a 800 x 600
     Character[][] matrizLienzo = new Character[1000][1000];
 
     int maxMatrizI = -1;
@@ -69,6 +67,10 @@ public class ConstructorMapas extends javax.swing.JFrame {
     boolean guardado;
     int numMapa;
 
+    /**
+     * Constructor que inicializa los componentes para poder pinar en la
+     * interfaz grafica.
+     */
     public ConstructorMapas() {
         initComponents();
 
@@ -77,7 +79,6 @@ public class ConstructorMapas extends javax.swing.JFrame {
 
         inicializarImagenes();
 
-        //setResizable(false);
         //Iniciar Maximizado la Ventana
         setExtendedState(this.getExtendedState() | this.MAXIMIZED_BOTH);
 
@@ -236,36 +237,7 @@ public class ConstructorMapas extends javax.swing.JFrame {
     }//GEN-LAST:event_bComprobarMapaActionPerformed
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        Point locationOnScreen = evt.getPoint();
-
-        posX = locationOnScreen.x;
-        posY = locationOnScreen.y;
-
-        posMI = (posX - 20) / 25;
-        posMJ = (posY - 75) / 25;
-
-        System.out.println("X = " + locationOnScreen.x);
-        System.out.println("Y = " + locationOnScreen.y);
-
-        System.out.println("Ubicacion Matrix i " + (posX - 20) / 25);
-        System.out.println("Ubicacion Matrix j " + (posY - 75) / 25);
-
-        //pintarCuadro((Graphics2D) getGraphics());
-        if (dibujar != null) {
-            dibujarObjeto((Graphics2D) getGraphics(), dibujar);
-        }
-
-        if (borradorActivo) {
-            borrarObjeto((Graphics2D) getGraphics());
-        }
-
-        if (posMI > maxMatrizI) {
-            maxMatrizI = posMI;
-        }
-
-        if (posMJ > maxMatrizJ) {
-            maxMatrizJ = posMJ;
-        }
+        pintar(evt);
     }//GEN-LAST:event_formMouseClicked
 
     private void bParedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bParedActionPerformed
@@ -359,6 +331,45 @@ public class ConstructorMapas extends javax.swing.JFrame {
     private javax.swing.JLabel lMensaje;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Escucha de evento de clic sobre el lienzo que permite determinar que
+     * elemento pintar
+     *
+     * @param evt evento de teclado que lo acciona
+     */
+    private void pintar(java.awt.event.MouseEvent evt) {
+        Point locationOnScreen = evt.getPoint();
+
+        posX = locationOnScreen.x;
+        posY = locationOnScreen.y;
+
+        posMI = (posX - 20) / 25;
+        posMJ = (posY - 75) / 25;
+
+        System.out.println("X = " + locationOnScreen.x);
+        System.out.println("Y = " + locationOnScreen.y);
+
+        System.out.println("Ubicacion Matrix i " + (posX - 20) / 25);
+        System.out.println("Ubicacion Matrix j " + (posY - 75) / 25);
+
+        //pintarCuadro((Graphics2D) getGraphics());
+        if (dibujar != null) {
+            dibujarObjeto((Graphics2D) getGraphics(), dibujar);
+        }
+
+        if (borradorActivo) {
+            borrarObjeto((Graphics2D) getGraphics());
+        }
+
+        if (posMI > maxMatrizI) {
+            maxMatrizI = posMI;
+        }
+
+        if (posMJ > maxMatrizJ) {
+            maxMatrizJ = posMJ;
+        }
+    }
+
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -368,6 +379,11 @@ public class ConstructorMapas extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Eliminar objeto de la interfaz y de la matriz
+     *
+     * @param g2
+     */
     private void borrarObjeto(Graphics2D g2) {
         try {
             matrizLienzo[posMJ][posMI] = null;
@@ -378,6 +394,12 @@ public class ConstructorMapas extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Pintar objeto sobre lienzo
+     *
+     * @param g2
+     * @param dibujar
+     */
     private void dibujarObjeto(Graphics2D g2, Image dibujar) {
         try {
             matrizLienzo[posMJ][posMI] = letra;
@@ -388,14 +410,11 @@ public class ConstructorMapas extends javax.swing.JFrame {
 
     }
 
-    private void pintarPared(Graphics2D g2) {
-        g2.drawImage(paredIMG, (posMI * 25) + 20, (posMJ * 25) + 75, 25, 25, this);
-    }
-
-    private void pintarCuadro(Graphics2D g2) {
-        g2.drawRect((posMI * 25) + 20, (posMJ * 25) + 75, 25, 25);
-    }
-
+    /**
+     * Imprimir cuadricula en lienzo
+     *
+     * @param g2
+     */
     private void generarCuadricula(Graphics2D g2) {
         System.out.println("Dibujar ...");
 
@@ -415,6 +434,9 @@ public class ConstructorMapas extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Inicializar las imagenes
+     */
     private void inicializarImagenes() {
         try {
             paredIMG = ImageIO.read(ConstructorMapas.class.getResource("../Imagenes/Muro.png"));
@@ -427,6 +449,14 @@ public class ConstructorMapas extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Permite determinar el boton activo manteniendolo sostenido hasta que
+     * cambie de boton
+     *
+     * @param boton boton que se verificar
+     * @param imagen imagen que debe de dibujar
+     * @param letra letra que representa
+     */
     public void seleccionToggleButtons(JToggleButton boton, Image imagen, Character letra) {
         borradorActivo = false;
         if (boton.isSelected()) {
@@ -442,12 +472,17 @@ public class ConstructorMapas extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Guardar Mapa en Archivo
+     *
+     * @return true si guarda | false sino
+     */
     private boolean guardarMapa() {
 
         if (!esMapaValido()) {
             JOptionPane.showMessageDialog(this, "El mapa no valido", "Comprobación de Mapa", JOptionPane.WARNING_MESSAGE);
             return false;
-        } 
+        }
 
         //Sino se a guardado identificar cual sera el num de mapa que le corresponda
         if (!guardado) {
@@ -479,12 +514,19 @@ public class ConstructorMapas extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Permite regresar al menu principal
+     */
     private void regresarPrincipal() {
         setVisible(false);
         Principal principal = new Principal();
         principal.setVisible(true);
     }
 
+    /**
+     * Comprobar que el mapa sea valido
+     * @return true si el mapa es valido | false si el mapa no esta valido
+     */
     private boolean esMapaValido() {
         int canAvatars = 0;
         int canCajas = 0;

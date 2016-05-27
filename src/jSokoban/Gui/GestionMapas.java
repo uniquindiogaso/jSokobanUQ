@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jSokoban.Gui;
 
-import com.sun.jmx.snmp.BerDecoder;
 import jSokoban.ArchivoControlador;
 import jSokoban.TableroControlador;
 import java.awt.Color;
@@ -19,13 +13,20 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.ColorUIResource;
 
 /**
+ * Intefaz grafica de Gestion de Tablero
  *
- * @author gusta
+ * @since 27-05-2016
+ * @version 0.9
+ * @author alejo
+ * @author gaso
  */
 public class GestionMapas extends javax.swing.JFrame {
 
     private JLabel imagenFondo;
 
+    /**
+     * Clase constructra que inicializa los elementos de la interfaz
+     */
     public GestionMapas() {
         initComponents();
         cargarListadoMapas();
@@ -204,8 +205,10 @@ public class GestionMapas extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     /**
+     * Clase que identifica los mapas disponibles en la carpeta de mapas y los
+     * retorna en un arreglo de cadenas
      *
-     * @return
+     * @return arreglo de cadenas con los nombres de los mapas
      */
     public static String[] mapasDisponibles() {
         String[] mapas = null;
@@ -264,6 +267,12 @@ public class GestionMapas extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Clase que identifica las partidas disponibles en la carpeta de mapas y
+     * los retorna en un arreglo de cadenas
+     *
+     * @return arreglo de nombres de partidas guardadas
+     */
     public static String[] partidasGuardadas() {
         String[] partidas = null;
         File carpetaPartidas = new File(TableroControlador.PATH_PARTIDAS);
@@ -344,6 +353,11 @@ public class GestionMapas extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Metodo encargado de ejecutar la eliminacion de un mapa
+     * al ser seleccionado del combobox de mapas disponibles
+     * 
+     */
     public void eliminarMapa() {
         if (cbMapasDisponibles.getSelectedItem() != null) {
             String nombreMapa = cbMapasDisponibles.getSelectedItem().toString();

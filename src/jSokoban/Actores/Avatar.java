@@ -1,26 +1,34 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jSokoban.Actores;
 
-import java.awt.Image;
-import java.net.URL;
-import javax.swing.ImageIcon;
 import jSokoban.Assets;
 
+/**
+ * Clase que representa la vida del Avatar(jugador) dentro del juego
+ *
+ * @since 27-05-2016
+ * @version 0.9
+ * @author alejo
+ * @author gaso
+ */
 public class Avatar extends Actor {
 
+    /**
+     * Constructor que inicializa la posicion del Avatar dentro del tablero
+     *
+     * @param x posicion en x
+     * @param y posicion en y
+     */
     public Avatar(int x, int y) {
         super(x, y);
-            //@TODO verificar si este codigo sirve o con el uso de la constante es suficiente
-//        URL ubicacionImg = this.getClass().getResource("../Imagenes/Avatar.png");
-//        ImageIcon icon = new ImageIcon(ubicacionImg);
-//        Image image = icon.getImage();
         this.setImagen(Assets.imgAvatarFrente);
     }
 
+    /**
+     * Cambiar de posicion el Avatar dentro del Tablero/Matriz
+     *
+     * @param x nueva posicion en x
+     * @param y nueva posicion en y
+     */
     public void mover(int x, int y) {
         int nx = this.getX() + x;
         int ny = this.getY() + y;

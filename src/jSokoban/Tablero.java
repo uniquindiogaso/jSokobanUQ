@@ -21,7 +21,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import javax.swing.JPanel;
-import jSokoban.Assets.Elemento;
 import jSokoban.Gui.GestionMapas;
 import jSokoban.Gui.Partida;
 import jSokoban.Gui.PrepararPartida;

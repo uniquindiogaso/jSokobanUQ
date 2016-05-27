@@ -1,20 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jSokoban.Actores;
 
 import jSokoban.Assets;
 
+/**
+ * Clase que representa la existencia de un destino dentro del juego
+ *
+ * @since 27-05-2016
+ * @version 0.9
+ * @author alejo
+ * @author gaso
+ */
 public class Objetivo extends Actor {
 
+    /**
+     * Constructor que inicializa la posicion
+     * de un objetivo dentro del tablero/matriz
+     * @param x posicion en x 
+     * @param y posicion en y
+     */
     public Objetivo(int x, int y) {
         super(x, y);
-
-//        URL loc = this.getClass().getResource("../Imagenes/Destino.png");
-//        ImageIcon iia = new ImageIcon(loc);
-//        Image image = iia.getImage();
         this.setImagen(Assets.imgDestino);
     }
 }

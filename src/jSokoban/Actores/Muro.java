@@ -1,20 +1,28 @@
 package jSokoban.Actores;
 
 import java.awt.Image;
-import java.net.URL;
-import javax.swing.ImageIcon;
 import jSokoban.Assets;
 
+/**
+ * Clase que representa la existencia de un muro dentro del juego
+ *
+ * @since 27-05-2016
+ * @version 0.9
+ * @author alejo
+ * @author gaso
+ */
 public class Muro extends Actor {
 
     private Image image;
 
+    /**
+     * Constructor que inicializa la posicion del muro dentro del tablero
+     *
+     * @param x posicion en x
+     * @param y posicion en y
+     */
     public Muro(int x, int y) {
         super(x, y);
-//@TODO verificar si este codigo sirve o con el uso de la constante es suficiente
-//        URL loc = this.getClass().getResource("../Imagenes/Muro.png");
-//        ImageIcon iia = new ImageIcon(loc);
-//        image = iia.getImage();
         this.setImagen(Assets.imgMuro);
 
     }
