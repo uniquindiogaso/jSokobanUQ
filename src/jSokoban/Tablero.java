@@ -653,6 +653,8 @@ public class Tablero extends JPanel {
         }
         if (verificarColisionMuro(caja, COLISION_ARRIBA) && verificarColisionMuro(caja, COLISION_IZQ)) {
             JOptionPane.showMessageDialog(null, "La partida ya no tiene solucion!", "Advertencia!!!", JOptionPane.WARNING_MESSAGE);
+        }if (cajas.size()>objetivos.size()||avatar==null) {
+             JOptionPane.showMessageDialog(null, "La partida ya no tiene solucion!", "Advertencia!!!", JOptionPane.WARNING_MESSAGE);
         }
 
     }
