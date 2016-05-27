@@ -25,6 +25,21 @@ import jSokoban.Assets.Elemento;
 import jSokoban.Gui.Partida;
 import jSokoban.Gui.PrepararPartida;
 import jSokoban.Gui.Principal;
+import static jSokoban.TableroControlador.SEPARADOR;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Comparator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.activation.FileDataSource;
 import javax.swing.JOptionPane;
 
 public class Tablero extends JPanel {
@@ -51,7 +66,7 @@ public class Tablero extends JPanel {
     private int movimientosTotales;
     private int movimientoActual;
     private int movimientosPuntaje;
-    
+
     private int puntajeTotal;
     //Jugador
     private Avatar avatar;
@@ -63,6 +78,9 @@ public class Tablero extends JPanel {
 
     //Lista de Movimientos Partida
     private ArrayList<Movimiento> movimientos = new ArrayList<>();
+
+    //Array de puntos
+    private ArrayList<Integer> ranking = new ArrayList<Integer>();
 
     //Clase controladora para manipular tablero de Juego
     private TableroControlador tablero;
@@ -152,10 +170,10 @@ public class Tablero extends JPanel {
     public final void iniciarMundo(String mapa) {
         //Iniciar Imagenes
         Assets.init();
-        
+
         //Construir Tablero
         tablero = new TableroControlador(mapa);
-        
+
         tablero.setMatrizJuego(tablero.toMatriz(mapa));
 
         int x = MARGEN;
@@ -212,7 +230,7 @@ public class Tablero extends JPanel {
     }
 
     public void construirMundo(Graphics g) {
-        
+
         g.setColor(new Color(101, 159, 62));
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
@@ -223,14 +241,11 @@ public class Tablero extends JPanel {
         mundo.addAll(cajas);
         mundo.add(avatar);
 
-        
         for (int i = 0; i < mundo.size(); i++) {
 
             Actor elemento = (Actor) mundo.get(i);
             g.drawImage(elemento.getImagen(), elemento.getX(), elemento.getY(), TAMANIO_ASSETS, TAMANIO_ASSETS, this);
 
-            
-            
             //Si se ha completado todas las cajas
             if (completo) {
                 //@TODO Se siente lag cuando se pone una fuente al G
@@ -639,7 +654,6 @@ public class Tablero extends JPanel {
      *
      * @param caja
      */
-
     public void noHaySolucion(Caja caja) {
 
         if (verificarColisionMuro(caja, COLISION_ABAJO) && verificarColisionMuro(caja, COLISION_DER)) {
@@ -653,8 +667,9 @@ public class Tablero extends JPanel {
         }
         if (verificarColisionMuro(caja, COLISION_ARRIBA) && verificarColisionMuro(caja, COLISION_IZQ)) {
             JOptionPane.showMessageDialog(null, "La partida ya no tiene solucion!", "Advertencia!!!", JOptionPane.WARNING_MESSAGE);
-        }if (cajas.size()>objetivos.size()||avatar==null) {
-             JOptionPane.showMessageDialog(null, "La partida ya no tiene solucion!", "Advertencia!!!", JOptionPane.WARNING_MESSAGE);
+        }
+        if (cajas.size() > objetivos.size() || avatar == null) {
+            JOptionPane.showMessageDialog(null, "La partida ya no tiene solucion!", "Advertencia!!!", JOptionPane.WARNING_MESSAGE);
         }
 
     }
@@ -686,18 +701,17 @@ public class Tablero extends JPanel {
             reiniciarNivel();
             System.out.println(nivel);
 
-            
-            
-        if(nivel==6){
-        JOptionPane.showMessageDialog(null, "Juego terminado!!!\nPuntaje total: "+puntajeTotal);
-        Principal principal = new Principal();
-      
-        principal.setVisible(true);
-        
-        
-        }else{
-        repaint();
-        }
+            if (nivel == 6) {
+                JOptionPane.showMessageDialog(null, "Juego terminado!!!\nPuntaje total: " + puntajeTotal);
+                rankingPuntaje(puntajeTotal);
+
+                Principal principal = new Principal();
+
+                principal.setVisible(true);
+
+            } else {
+                repaint();
+            }
         }
     }
 
@@ -708,6 +722,7 @@ public class Tablero extends JPanel {
         cajas.clear();
         muros.clear();
         iniciarMundo();
+
         if (completo) {
             completo = false;
         }
@@ -716,12 +731,52 @@ public class Tablero extends JPanel {
     /**
      * metodo para calcular el puntaje
      */
-    public void calcularPuntaje() {
+    private void calcularPuntaje() {
         int tamanoTotal = tablero.getMatrizJuego().length * tablero.getMatrizJuego()[0].length;
-        int puntajeParcial =tamanoTotal - (movimientosPuntaje + 1);
+        int puntajeParcial = tamanoTotal - (movimientosPuntaje + 1);
         JOptionPane.showMessageDialog(null, "Puntaje de la partida:" + " " + puntajeParcial);
-        movimientosPuntaje=0;
-        puntajeTotal+=puntajeParcial;
+        movimientosPuntaje = 0;
+        puntajeTotal += puntajeParcial;
+    }
+
+    private void rankingPuntaje(int puntaje) {
+
+        //ranking.add(puntaje);
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("E:\\Proyecto\\jSokobanUQ\\Puntaje.txt"));
+
+            for (int i = 0; i < 5; i++) {
+
+                ranking.add(Integer.parseInt(br.readLine()));
+
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Tablero.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Tablero.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ranking.add(puntaje);
+        Collections.sort(ranking,Collections.reverseOrder() );
+        
+        System.out.println(ranking.toString());
+       
+            try {
+                try (FileWriter escritor = new FileWriter("E:\\Proyecto\\jSokobanUQ\\Puntaje.txt")) {
+                     for (int i = 0; i < 5; i++) {
+                    escritor.write(ranking.get(i).toString());
+                     }
+                     
+                     
+                }
+
+            } catch (IOException e) {
+                Logger.getLogger(ArchivoControlador.class.getName()).log(Level.WARNING, "No se logro guardar archivo en ruta especificada ({0})");
+
+            
+
+        }
+
     }
 
     /**

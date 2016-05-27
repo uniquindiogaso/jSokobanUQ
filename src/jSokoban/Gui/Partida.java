@@ -155,10 +155,10 @@ public class Partida extends javax.swing.JFrame {
     }//GEN-LAST:event_bRehacerMouseClicked
 
     private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
-        int num= GestionMapas.asignarNumeroMapa();
+        long num= System.currentTimeMillis();
         String ruta = System.getProperty("user.dir") + java.io.File.separator + "Partidas" + java.io.File.separator + "mapa" + num + ".txt";
         if(ArchivoControlador.guardarArchivo(ruta, tab.matrizToString())){
-            System.out.println(ruta);
+            
             JOptionPane.showMessageDialog(null, "Partida Guardada");
         }else{
              JOptionPane.showMessageDialog(null, "No se pudo guardar la partida");
