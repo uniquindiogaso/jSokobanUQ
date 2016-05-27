@@ -22,6 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;
 
 /**
@@ -34,6 +35,7 @@ public class ConstructorMapas extends javax.swing.JFrame {
     int TAMANIO_IMAGEN = 25;
     int MIN_X = 75;
     int MIN_Y = 20;
+    TableroControlador tab;
 
     private boolean borradorActivo = false;
 
@@ -227,7 +229,8 @@ public class ConstructorMapas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bComprobarMapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bComprobarMapaActionPerformed
-        //Llamado del metodo que comprueba si hay solucion al mapa
+   String mapa= tab.matrizToString();
+        System.out.println(mapa);
 
     }//GEN-LAST:event_bComprobarMapaActionPerformed
 
@@ -439,6 +442,8 @@ public class ConstructorMapas extends javax.swing.JFrame {
     }
 
     private boolean guardarMapa() {
+        
+
         //Sino se a guardado identificar cual sera el num de mapa que le corresponda
         if (!guardado) {
             numMapa = GestionMapas.asignarNumeroMapa();
