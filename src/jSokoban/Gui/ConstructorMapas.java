@@ -35,7 +35,6 @@ public class ConstructorMapas extends javax.swing.JFrame {
     int TAMANIO_IMAGEN = 25;
     int MIN_X = 75;
     int MIN_Y = 20;
-    
 
     private boolean borradorActivo = false;
 
@@ -48,7 +47,7 @@ public class ConstructorMapas extends javax.swing.JFrame {
     int posMJ = -1;
 
     //Equivale a 800 x 600
-    Character[][] matrizLienzo = new Character[32][25];
+    Character[][] matrizLienzo = new Character[1000][1000];
 
     int maxMatrizI = -1;
     int maxMatrizJ = -1;
@@ -229,7 +228,11 @@ public class ConstructorMapas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bComprobarMapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bComprobarMapaActionPerformed
-      
+        if (esMapaValido()) {
+            JOptionPane.showMessageDialog(this, "El mapa es valido", "Comprobación de Mapa", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "El mapa no valido", "Comprobación de Mapa", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_bComprobarMapaActionPerformed
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
@@ -298,7 +301,6 @@ public class ConstructorMapas extends javax.swing.JFrame {
 
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
         if (guardarMapa()) {
-            
             guardado = true;
             lMensaje.setText("Mapa guardado correctamente.");
         }
@@ -441,7 +443,11 @@ public class ConstructorMapas extends javax.swing.JFrame {
     }
 
     private boolean guardarMapa() {
-        
+
+        if (!esMapaValido()) {
+            JOptionPane.showMessageDialog(this, "El mapa no valido", "Comprobación de Mapa", JOptionPane.WARNING_MESSAGE);
+            return false;
+        } 
 
         //Sino se a guardado identificar cual sera el num de mapa que le corresponda
         if (!guardado) {
@@ -457,7 +463,7 @@ public class ConstructorMapas extends javax.swing.JFrame {
         for (int i = 0; i < (maxMatrizJ + 1); i++) {
             for (int j = 0; j < (maxMatrizI + 1); j++) {
                 res += matrizLienzo[i][j] == null ? Actores.VACIO.getC() : matrizLienzo[i][j];
-             
+
                 //Agregar separador menos al final de cada linea
                 if (j != maxMatrizI) {
                     res += TableroControlador.SEPARADOR;
@@ -466,20 +472,41 @@ public class ConstructorMapas extends javax.swing.JFrame {
             //agregar Salto de linea
             res += "\n";
         }
-        
-        
+
         System.out.println("res = \n" + res);
         //return true;
         return ArchivoControlador.guardarArchivo(ruta, res);
 
     }
-    
-    
 
     private void regresarPrincipal() {
         setVisible(false);
         Principal principal = new Principal();
         principal.setVisible(true);
+    }
+
+    private boolean esMapaValido() {
+        int canAvatars = 0;
+        int canCajas = 0;
+        int canDestinos = 0;
+
+        for (int i = 0; i < matrizLienzo.length; i++) {
+            for (int j = 0; j < matrizLienzo[i].length; j++) {
+                if (matrizLienzo[i][j] != null) {
+                    if (matrizLienzo[i][j] == Actores.AVATAR.getC()) {
+                        canAvatars++;
+                    }
+                    if (matrizLienzo[i][j] == Actores.CAJA.getC()) {
+                        canCajas++;
+                    }
+                    if (matrizLienzo[i][j] == Actores.DESTINO.getC()) {
+                        canDestinos++;
+                    }
+                }
+            }
+        }
+
+        return canAvatars == 1 && canCajas == canDestinos;
     }
 
 }

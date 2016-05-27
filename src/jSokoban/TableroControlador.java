@@ -260,13 +260,31 @@ public class TableroControlador {
     public String matrizToString() {
         String mapa = "";
         Character[][] matrizJ = getMatrizJuego();
-
         for (Character[] matrizJuego1 : matrizJ) {
             for (Character item : matrizJuego1) {
                 mapa += item;
             }
             mapa += "\n";
         }
+        return mapa;
+    }
+
+    public String matrizToStringSeparador() {
+        String mapa = "";
+        Character[][] matrizJ = getMatrizJuego();
+        for (int i = 0; i < matrizJ.length; i++) {
+            for (int j = 0; j < matrizJ[i].length; j++) {
+                
+                if (j == matrizJ[i].length -1) {
+                    mapa += matrizJ[i][j];                    
+                }else{
+                    mapa += matrizJ[i][j]+TableroControlador.SEPARADOR;
+                }
+                
+            }
+            mapa += "\n";
+        }
+        
 
         return mapa;
     }

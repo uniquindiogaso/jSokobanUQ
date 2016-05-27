@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import javax.swing.JPanel;
 import jSokoban.Assets.Elemento;
+import jSokoban.Gui.GestionMapas;
 import jSokoban.Gui.Partida;
 import jSokoban.Gui.PrepararPartida;
 import jSokoban.Gui.Principal;
@@ -91,18 +92,22 @@ public class Tablero extends JPanel {
     //fuente empleada para mostrar que ha ganado
     private Font fuente;
 
-    public Tablero(int nivel) {
+    Partida ventanaJuego;
+
+    public Tablero(int nivel, Partida ventanaJuego) {
         System.out.println("Tablero => Nivel a Cargar " + nivel);
         addKeyListener(new TAdapter());
         setFocusable(true);
         this.nivel = nivel;
         iniciarMundo();
+        this.ventanaJuego = ventanaJuego;
     }
 
-    public Tablero(String mapa) {
+    public Tablero(String mapa, Partida ventanaPartida) {
         addKeyListener(new TAdapter());
         setFocusable(true);
         iniciarMundo(mapa);
+        this.ventanaJuego = ventanaPartida;
     }
 
     public int getAnchoTablero() {
@@ -701,29 +706,35 @@ public class Tablero extends JPanel {
             calcularPuntaje();
             completo = true;
             nivel++;
-            reiniciarNivel();
-            System.out.println(nivel);
 
-            if (nivel == 6) {
-                JOptionPane.showMessageDialog(null, "Juego terminado!!!\nPuntaje total: " + puntajeTotal);
+            if (GestionMapas.mapasDisponibles().length < nivel) {
 
-                rankingPuntaje(puntajeTotal);
                 Principal principal = new Principal();
                 principal.setVisible(true);
+                ventanaJuego.setVisible(false);
+
+                rankingPuntaje(puntajeTotal);
+
+                JOptionPane.showMessageDialog(null, "Juego terminado!!!\nPuntaje total: " + puntajeTotal);
 
             } else {
+                reiniciarNivel();
+                System.out.println(nivel);
                 repaint();
             }
         }
     }
 
     public void reiniciarNivel() {
+
         movimientoActual = movimientosTotales = 0;
         movimientos.clear();
         objetivos.clear();
         cajas.clear();
         muros.clear();
         iniciarMundo();
+
+        ventanaJuego.redimensionarPantalla();
 
         if (completo) {
             completo = false;
@@ -743,13 +754,12 @@ public class Tablero extends JPanel {
 
     private void rankingPuntaje(int puntaje) {
 
-        //ranking.add(puntaje);
+        String ruta = System.getProperty("user.dir") + java.io.File.separator + "Puntaje.txt";
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader("E:\\Proyecto\\jSokobanUQ\\Puntaje.txt"));
+            BufferedReader br = new BufferedReader(new FileReader(new File(ruta)));
 
             for (int i = 0; i < 5; i++) {
-
                 ranking.add(Integer.parseInt(br.readLine()));
 
             }
@@ -759,26 +769,22 @@ public class Tablero extends JPanel {
             Logger.getLogger(Tablero.class.getName()).log(Level.SEVERE, null, ex);
         }
         ranking.add(puntaje);
-        Collections.sort(ranking,Collections.reverseOrder() );
-        
+        Collections.sort(ranking, Collections.reverseOrder());
+
         System.out.println(ranking.toString());
-       
-            try {
-                try (FileWriter escritor = new FileWriter("E:\\Proyecto\\jSokobanUQ\\Puntaje.txt")) {
-                     for (int i = 0; i < 5; i++) {
+
+        try {
+            try (FileWriter escritor = new FileWriter("E:\\Proyecto\\jSokobanUQ\\Puntaje.txt")) {
+                for (int i = 0; i < 5; i++) {
                     escritor.write(ranking.get(i).toString());
-                     }
-                     
-                     
                 }
 
-            } catch (IOException e) {
-                Logger.getLogger(ArchivoControlador.class.getName()).log(Level.WARNING, "No se logro guardar archivo en ruta especificada ({0})");
+            }
 
-            
+        } catch (IOException e) {
+            Logger.getLogger(ArchivoControlador.class.getName()).log(Level.WARNING, "No se logro guardar archivo en ruta especificada ({0})");
 
         }
-
 
     }
 
@@ -853,16 +859,16 @@ public class Tablero extends JPanel {
 
     public void ejecutarSolucionador() {
         EstadoJuego estadoActual = EstadoJuego.interpretarMapa(tablero.getMatrizJuego());
-        
+
         SolucionadorMagico s = new SolucionadorMagico(this, estadoActual, 10);
         s.start();
-       
+
     }
 
     public void mostrarMundoAutomatico(String mapa) {
         cajas.clear();
         reconstruirMundoBackTracking(mapa);
-        repaint();      
+        repaint();
     }
 
     public final void reconstruirMundoBackTracking(String mapa) {
@@ -920,5 +926,5 @@ public class Tablero extends JPanel {
             altoTablero = y;
         }
 
-    }  
+    }
 }

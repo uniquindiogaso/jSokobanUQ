@@ -6,7 +6,6 @@
 package jSokoban.Gui;
 
 import jSokoban.ArchivoControlador;
-import jSokoban.Solucionador;
 import java.awt.Component;
 import javax.swing.JFrame;
 import jSokoban.Tablero;
@@ -26,19 +25,13 @@ public class Partida extends javax.swing.JFrame {
     public Partida(int nivel) {
         initComponents();
 
-        board = new Tablero(nivel);
+        board = new Tablero(nivel,this);
         tab = new TableroControlador(nivel);
         add(board);
 
-        board.setBounds(10, 60, board.getAnchoTablero(), board.getAltoTablero());
-
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(board.getAnchoTablero() + 35,
-                board.getAltoTablero() + 3 * 35);
-
-        setLocationRelativeTo(null);
-
         setTitle("JSokobanUQ");
+        redimensionarPantalla();
+        
 
     }
 
@@ -46,7 +39,8 @@ public class Partida extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
 
-        board = new Tablero(mapa);
+        board = new Tablero(mapa,this);
+        tab = new TableroControlador(mapa);
         add(board);
 
         board.setBounds(10, 60, board.getAnchoTablero(), board.getAltoTablero());
@@ -80,14 +74,13 @@ public class Partida extends javax.swing.JFrame {
         btnGuardar.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         btnGuardar.setForeground(java.awt.Color.red);
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Constructor/guardar.png"))); // NOI18N
-        btnGuardar.setText("G");
         btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnGuardarMouseClicked(evt);
             }
         });
         getContentPane().add(btnGuardar);
-        btnGuardar.setBounds(280, 10, 30, 32);
+        btnGuardar.setBounds(280, 10, 30, 25);
 
         bDeshacer.setBackground(new java.awt.Color(51, 51, 51));
         bDeshacer.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
@@ -154,13 +147,15 @@ public class Partida extends javax.swing.JFrame {
     }//GEN-LAST:event_bRehacerMouseClicked
 
     private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
-        long num= System.currentTimeMillis();
+       
+        long num = System.currentTimeMillis();
         String ruta = System.getProperty("user.dir") + java.io.File.separator + "Partidas" + java.io.File.separator + "mapa" + num + ".txt";
-        if(ArchivoControlador.guardarArchivo(ruta, tab.matrizToString())){
-            
+               
+        if (ArchivoControlador.guardarArchivo(ruta, tab.matrizToStringSeparador())) {
+
             JOptionPane.showMessageDialog(null, "Partida Guardada");
-        }else{
-             JOptionPane.showMessageDialog(null, "No se pudo guardar la partida");
+        } else {
+            JOptionPane.showMessageDialog(null, "No se pudo guardar la partida");
         }
     }//GEN-LAST:event_btnGuardarMouseClicked
 
@@ -174,7 +169,6 @@ public class Partida extends javax.swing.JFrame {
     private void bSolucionadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bSolucionadorMouseClicked
         board.ejecutarSolucionador();
     }//GEN-LAST:event_bSolucionadorMouseClicked
-
 
     /**
      * @param args the command line arguments
@@ -209,6 +203,20 @@ public class Partida extends javax.swing.JFrame {
 //                new Partida(1).setVisible(true);
 //            }
 //        });
+    }
+
+    /**
+     * Redimensionar automaticamente tamaño de la partida por cada mapa
+     */
+    public void redimensionarPantalla() {
+        board.setBounds(10, 60, board.getAnchoTablero(), board.getAltoTablero());
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(board.getAnchoTablero() + 35,
+                board.getAltoTablero() + 3 * 35);
+
+        setLocationRelativeTo(null);
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

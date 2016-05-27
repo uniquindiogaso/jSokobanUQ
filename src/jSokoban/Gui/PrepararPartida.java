@@ -221,6 +221,8 @@ public class PrepararPartida extends javax.swing.JFrame {
 
                 String partida = ArchivoControlador.cargarArchivo(rutaArchivo);
 
+                System.out.println("partida = \n" + partida);
+                
                 ventanaJuego = new Partida(partida);
                 ventanaJuego.setVisible(true);
                 this.setVisible(false);
