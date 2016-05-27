@@ -1,12 +1,21 @@
 package jSokoban.backtracking;
 
-
 import jSokoban.Tablero;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class SolucionadorMagico extends Thread{
+/**
+ * Solucionador de Tablero utilizado tecnicas de backtracking.
+ *
+ * @see inspirado en https://github.com/andgoldin/AIGames
+ *
+ * @since 27-05-2016
+ * @version 0.9
+ * @author alejo
+ * @author gaso
+ */
+public class SolucionadorMagico extends Thread {
 
     private long nodosGenerados;
     private long nodosConEstadosPrevios;
@@ -17,16 +26,18 @@ public class SolucionadorMagico extends Thread{
     private boolean encontroExplorado;
 
     private String secuencia;
-    
+
     private Tablero tableroGui;
     private EstadoJuego posicionInical;
     private int limit;
 
     /**
-     * Default constructor.
+     * Constructor por defecto que inicializa los elementos requeridos para que
+     * la busqueda por profundidan se realice.
+     *
      * @param tablero
      */
-    public SolucionadorMagico(Tablero tablero,EstadoJuego posicionInical, int limit) {        
+    public SolucionadorMagico(Tablero tablero, EstadoJuego posicionInical, int limit) {
         encontroExplorado = false;
         this.tableroGui = tablero;
         this.posicionInical = posicionInical;
@@ -34,34 +45,15 @@ public class SolucionadorMagico extends Thread{
     }
 
     /**
-     * Returns the results of the search as a string.
+     * Realiza busqueda en profundadida con un limite para evitar bucles infitos
      *
-     * @return the search results
-     */
-    public String report() {
-//        String report = "Board:\n" + board
-//                //+ "\nSearch type: " + searchType
-//               // + (heuristic.length() > 0 ? " (Cost heuristic: " + heuristic + ")" : "")
-//                + "\nSequence: " + secuencia
-//                //+ (statistics ? "\n\nStatistics:\nNodes generated: " + nodosGenerados
-//                        + "\nNodes containing previous states: " + nodosConEstadosPrevios
-//                        + "\nNodes on the fringe: " + nodosEnFrontera
-//                        + "\nNodes on explored list: " + nodosEnExploracion
-//                     //   + "\nTotal runtime: " + (((double) runtime) / 1000) + " seconds" : "");
-        return "";
-    }
-
-
-    /**
-     * Performs a depth first search with a depth limit to avoid infinite loops.
+     * @param posicionInical Estado Inicial de Juego
+     * @param limite límite de profundidad
      *
-     * @param posicionInical the puzzle start state
-     * @param limit the depth limit
-     * 
      */
-    public void busquedaProfundidad(EstadoJuego posicionInical, int limit) {
+    public void busquedaProfundidad(EstadoJuego posicionInical, int limite) {
 
-        posicionInical = posicionInical.setSearchType();
+        posicionInical = posicionInical.obtenerEstadoJuego();
 
         runtime = System.currentTimeMillis();
         nodosGenerados = 0;
@@ -72,7 +64,7 @@ public class SolucionadorMagico extends Thread{
         while (!franjas.isEmpty()) {
             EstadoJuego actualEstado = franjas.pop();
             if (actualEstado.esEstadoDestino()) {
-                System.out.println("\n"+actualEstado.toString());
+                System.out.println("\n" + actualEstado.toString());
                 tableroGui.cargarNivel(actualEstado.toString());
                 runtime = System.currentTimeMillis() - runtime;
                 secuencia = actualEstado.getSecuencia();
@@ -81,7 +73,7 @@ public class SolucionadorMagico extends Thread{
                 return;
             }
             // push expansions to the fringe if the limit has not been reached
-            if (actualEstado.getNumMovimientos() < limit) {
+            if (actualEstado.getNumMovimientos() < limite) {
                 encontroExplorado = false;
                 for (int i = EstadoJuego.DERECHA; i >= EstadoJuego.ARRIBA; i--) {
                     // add moves to the fringe if they are valid and do not point back to the previous state
@@ -113,7 +105,7 @@ public class SolucionadorMagico extends Thread{
 
     @Override
     public void run() {
-        busquedaProfundidad(posicionInical,limit);
+        busquedaProfundidad(posicionInical, limit);
     }
 
 }

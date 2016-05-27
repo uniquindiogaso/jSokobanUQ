@@ -1,6 +1,7 @@
-V,V,V,V,V,V,V,V,V,V,V
-V,V,V,V,V,V,V,V,V,V,V
-V,V,V,V,V,V,V,A,V,V,D
-V,V,V,V,V,V,V,V,C,V,V
-V,V,V,V,V,V,V,V,V,V,V
-V,V,V,V,V,V,V,V,V,V,V
+/**
+ * Manejador de Entrada/Salida para Archivos
+ * @since 27-05-2016
+ * @version 0.9
+ * @author alejo
+ * @author gaso
+ */

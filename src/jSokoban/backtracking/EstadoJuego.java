@@ -7,9 +7,14 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 /**
- * Represents a state in a Sokoban Puzzle.
+ * Clase que gestiona los movimientos automaticos dentro de la ejecucion del
+ * backtraking - hay magia (mucha) aqui
  *
- * @author Andrew Goldin
+ * @see inspirado en https://github.com/andgoldin/AIGames
+ * @since 27-05-2016
+ * @version 0.9
+ * @author alejo
+ * @author gaso
  */
 public class EstadoJuego {
 
@@ -26,13 +31,6 @@ public class EstadoJuego {
             CAJA_DESTINO = '+',
             VACIO = 'V';
 
-//    public static final char MURO = '#',
-//            DESTINO = '.',
-//            AVATAR = '@',
-//            AVATAR_DESTINO = '+',
-//            CAJA = '$',
-//            CAJA_DESTINO = '*',
-//            VACIO = ' ';
     private Character[][] matrizJuego, nuevaMatrizJuego;
     private int pFila, pCol, prNew, pcNew;
     private String listaMovimiento;
@@ -41,13 +39,14 @@ public class EstadoJuego {
     private Coordenadas[] cajas, nuevasCajas, destinos;
 
     /**
-     * Creates a state with a given board, the moves leading up to that state,
-     * and whether or not the state is presently involved in a uniform cost
-     * search.
+     * Crea un estado con una tabla dada, los movimientos que llevaron a ese
+     * estado, y si es o no el estado participa actualmente en una búsqueda
+     * costo uniforme.
      *
-     * @param partida the current board state as a 2D char array
+     * @param partida el estado actual del tablero como una matriz de caracteres
+     * 2D
      * @param listamovimientos the sequence of moves leading up to this state
-     * @param ucSearch whether the puzzle is involved in a uniform cost search
+     *
      */
     public EstadoJuego(Character[][] partida, String listamovimientos) {
         this.matrizJuego = partida;
@@ -58,40 +57,40 @@ public class EstadoJuego {
 
     /**
      *
-     *
-     * Creates a state with a given board, the moves leading up to that state,
-     * the coordinates of the player on the grid, and whether or not the state
-     * is presently involved in a uniform cost search.
+     * Crea un estado con una tabla dada, los movimientos que llevaron a ese
+     * estado, las coordenadas del jugador en la parrilla, y si es o no el
+     * estado participa actualmente en una búsqueda costo uniforme.
      *
      * @param matrizJuego
      * @param movimientos
-     * @param playerRow
-     * @param playerCol
-     * @param boxes
-     * @param goals
+     * @param jugadorFila
+     * @param jugadorCol
+     * @param cajas
+     * @param destinos
      */
-    public EstadoJuego(Character[][] matrizJuego, String movimientos, int playerRow, int playerCol,
-            Coordenadas[] boxes, Coordenadas[] goals) {
+    public EstadoJuego(Character[][] matrizJuego, String movimientos, int jugadorFila, int jugadorCol,
+            Coordenadas[] cajas, Coordenadas[] destinos) {
         this.matrizJuego = matrizJuego;
         reiniciarMatrizJuego();
         listaMovimiento = movimientos;
-        pFila = playerRow;
-        pCol = playerCol;
-        this.cajas = boxes;
-        this.destinos = goals;
+        pFila = jugadorFila;
+        pCol = jugadorCol;
+        this.cajas = cajas;
+        this.destinos = destinos;
     }
 
     /**
-     * Returns a new PuzzleState with the search type altered.
+     * Retorna un Estado de Juego Nuevo
      *
-     * @param type the new search type
-     * @return a new PuzzleState
+     * @return nuevo estado de juego
      */
-    public EstadoJuego setSearchType() {
+    public EstadoJuego obtenerEstadoJuego() {
         return new EstadoJuego(matrizJuego, listaMovimiento, pFila, pCol, cajas, destinos);
     }
 
-    // private method
+    /**
+     * Reiniciar posiciones de Matriz a una posicion correcta
+     */
     private void reiniciarMatrizJuego() {
         nuevaMatrizJuego = matrizJuego.clone();
         for (int i = 0; i < matrizJuego.length; i++) {
@@ -99,7 +98,9 @@ public class EstadoJuego {
         }
     }
 
-    // private method
+    /**
+     * Reiniciar posicion de cajas a una posicion correcta
+     */
     private void reiniciarNuevasCajas() {
         nuevasCajas = cajas.clone();
         for (int i = 0; i < nuevasCajas.length; i++) {
@@ -108,29 +109,30 @@ public class EstadoJuego {
     }
 
     /**
-     * The number of moves leading up to the current state
+     * Retorna el numero de movimientos totales
      *
-     * @return the number of moves
+     * @return numero de movimientos
      */
     public int getNumMovimientos() {
         return listaMovimiento.length();
     }
 
     /**
-     * The list of moves as a string containing a sequence of the letters (u, d,
-     * l, r). If a letter is upper case, a box push occurred at that step.
+     * La lista de movimientos como una cadena que contiene una secuencia de las
+     * letras (u, d, l, r). Si una letra es mayúscula, un empuje cuadro se
+     * produjo en ese paso.
      *
-     * @return the list of moves
+     * @return Lista de Movimientos
      */
     public String getMoves() {
         return listaMovimiento;
     }
 
     /**
-     * Returns the move sequence as a comma-separated list. For printing
-     * purposes.
+     * Devuelve la secuencia de la movimientos como una lista separada por
+     * comas. Para fines de impresión.
      *
-     * @return the formatted move sequence.
+     * @return secuencia de movimientos con formato.
      */
     public String getSecuencia() {
         String seq = "";
@@ -144,7 +146,13 @@ public class EstadoJuego {
         return seq;
     }
 
-    // private method
+    /**
+     * Obtener posicion de una Caja Especifica
+     *
+     * @param fila
+     * @param col
+     * @return
+     */
     private int getPosicionCajaMatriz(int fila, int col) {
         for (int i = 0; i < cajas.length; i++) {
             if (cajas[i].fila == fila && cajas[i].colum == col) {
@@ -154,7 +162,9 @@ public class EstadoJuego {
         return -1;
     }
 
-    // private method, updates the positions of boxes, goals, and player
+    /**
+     * Actualizar las posiciones de las cajas, los destinos, y el jugador
+     */
     private void actualizarPosiciones() {
         LinkedList<Coordenadas> ubicacionCajas = new LinkedList<Coordenadas>();
         LinkedList<Coordenadas> ubicacionDestino = new LinkedList<Coordenadas>();
@@ -177,10 +187,10 @@ public class EstadoJuego {
     }
 
     /**
-     * Determines if the puzzle is in a goal state. That is to say, there are no
-     * empty goals or boxes on the floor.
+     * Determina si el juego está en un estado exito. Es decir, no hay cajas sin
+     * posicionar
      *
-     * @return true if goal state is reached, false otherwise.
+     * @return true si se alcanza el estado meta, false en caso contrario.
      */
     public boolean esEstadoDestino() {
         for (int i = 0; i < matrizJuego.length; i++) {
@@ -194,19 +204,20 @@ public class EstadoJuego {
     }
 
     /**
-     * Generates a new PuzzleState based on a move direction.
+     * Generar un nuevo Estado de Juego basado en la direccion de movimientos
      *
-     * @param direction the direction to move the player
-     * @return an updated PuzzleState with positions recalculated and move list
-     * updated
+     * @param direccion direccion de movimiento del jugador
+     * @return Estado Juego actualizado con las posiciones recalcula y actualiza
+     * lista de movimientos
+     *
      */
-    public EstadoJuego generarMovimiento(int direction) {
+    public EstadoJuego generarMovimiento(int direccion) {
         reiniciarMatrizJuego();
         reiniciarNuevasCajas();
         dir = ' ';
         prNew = pFila;
         pcNew = pCol;
-        if (direction == ARRIBA) {
+        if (direccion == ARRIBA) {
             dir = 'u';
             prNew--;
             // if there's a box, move the box
@@ -219,7 +230,7 @@ public class EstadoJuego {
             // move the player
             nuevaMatrizJuego[pFila - 1][pCol] = matrizJuego[pFila - 1][pCol] == DESTINO || matrizJuego[pFila - 1][pCol] == CAJA_DESTINO
                     ? AVATAR_DESTINO : AVATAR;
-        } else if (direction == ABAJO) {
+        } else if (direccion == ABAJO) {
             dir = 'd';
             prNew++;
             // if there's a box, move the box
@@ -232,7 +243,7 @@ public class EstadoJuego {
             // move the player
             nuevaMatrizJuego[pFila + 1][pCol] = matrizJuego[pFila + 1][pCol] == DESTINO || matrizJuego[pFila + 1][pCol] == CAJA_DESTINO
                     ? AVATAR_DESTINO : AVATAR;
-        } else if (direction == IZQUIERDA) {
+        } else if (direccion == IZQUIERDA) {
             dir = 'l';
             pcNew--;
             // if there's a box, move the box
@@ -245,7 +256,7 @@ public class EstadoJuego {
             // move the player
             nuevaMatrizJuego[pFila][pCol - 1] = matrizJuego[pFila][pCol - 1] == DESTINO || matrizJuego[pFila][pCol - 1] == CAJA_DESTINO
                     ? AVATAR_DESTINO : AVATAR;
-        } else if (direction == DERECHA) {
+        } else if (direccion == DERECHA) {
             dir = 'r';
             pcNew++;
             // if there's a box, move the box
@@ -267,11 +278,11 @@ public class EstadoJuego {
     }
 
     /**
-     * Determines if the player can move in a given direction in the current
-     * state.
+     * Determina si el jugador puede mover en una dirección dada en el estado
+     * actual.
      *
-     * @param direccion the attempted direction of movement
-     * @return true if a move can be performed, false otherwise
+     * @param direccion intento de movimiento
+     * @return true si movimiento se puede realizar | false en caso contrario
      */
     public boolean puedeMoverse(int direccion) {
         if (direccion == ARRIBA) {
@@ -311,36 +322,40 @@ public class EstadoJuego {
     }
 
     /**
-     * Returns a string representation of the current state, including the board
-     * and player position.
+     * Retorna la representacion raw del movimiento en el tablero
      *
-     * @return a String representing the current state
+     * @return cadena que representa el estado actual
      */
     public String toString() {
-        String puzzle = "";
+        String mapaJuego = "";
         for (int i = 0; i < matrizJuego.length; i++) {
             for (int j = 0; j < matrizJuego[i].length; j++) {
-                puzzle += matrizJuego[i][j];
+                mapaJuego += matrizJuego[i][j];
             }
-            puzzle += "\n";
+            mapaJuego += "\n";
         }
-        //puzzle += "Player: (" + pRow + ", " + pCol + ")";
-        return puzzle;
+
+        return mapaJuego;
     }
 
     /**
-     * Generates a PuzzleState from a text file.
+     * Interpreta Mapa de acuerdo a Matriz de Caracteres
      *
-     * @param partida
-     * @param filename the specified file path
-     * @param uc whether uniform cost will be performed
-     * @return a PuzzleState based on the given file
+     * @param partida matriz con representacion de caracteres
+     * @return Estado de Juego Inicial
      */
     public static EstadoJuego interpretarMapa(Character[][] partida) {
         return new EstadoJuego(partida, "");
     }
 
-    // represents a grid coordinate
+    /**
+     * Clase de determina coordenadas de objeto
+     *
+     * @since 27-05-2016
+     * @version 0.9
+     * @author alejo
+     * @author gaso
+     */
     private class Coordenadas {
 
         public int fila, colum;
