@@ -80,13 +80,13 @@ public class ArchivoControlador {
      * @param rutaOrigen
      * @return 
      */
-    public static boolean transferirMapa(String rutaOrigen) {
+    public static boolean importarMapa(String rutaOrigen) {
         try {
             File aOrigen = new File(rutaOrigen);
             //Aqui comprobar que sea un mapa valido            
             FileChannel origen = new FileInputStream(new File(rutaOrigen)).getChannel();
             //@FIXME - Si eliminan un mapa de una numeracion diferente, este se sobre escribira ( usar recursividad)
-            String archivo = TableroControlador.PATH_MAPAS + "mapa" + ( GestionMapas.numMapas() + 1) + ".txt";
+            String archivo = TableroControlador.PATH_MAPAS + "mapa" + GestionMapas.asignarNumeroMapa() + ".txt";
 
             FileChannel destino = new FileOutputStream(new File(archivo)).getChannel();
             destino.transferFrom(origen, 0, origen.size());

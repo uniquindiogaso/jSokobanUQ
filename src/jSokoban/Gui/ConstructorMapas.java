@@ -100,6 +100,7 @@ public class ConstructorMapas extends javax.swing.JFrame {
         bBorrar = new javax.swing.JToggleButton();
         lMensaje = new javax.swing.JLabel();
         bGuardar = new javax.swing.JButton();
+        bRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addMouseListener(new java.awt.event.MouseAdapter() {
@@ -165,6 +166,14 @@ public class ConstructorMapas extends javax.swing.JFrame {
             }
         });
 
+        bRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Constructor/regresar.png"))); // NOI18N
+        bRegresar.setToolTipText("Regresar a Menu Principal");
+        bRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bRegresarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -172,7 +181,7 @@ public class ConstructorMapas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
+                    .addComponent(jSeparator1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(bPared)
                         .addGap(4, 4, 4)
@@ -186,25 +195,29 @@ public class ConstructorMapas extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bComprobarMapa)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bRegresar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(bGuardar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(bComprobarMapa)
-                        .addComponent(bAvatar)
-                        .addComponent(bCaja)
-                        .addComponent(bDestino)
-                        .addComponent(bBorrar, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(lMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bPared))
-                    .addComponent(bGuardar))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(bComprobarMapa)
+                            .addComponent(bAvatar)
+                            .addComponent(bCaja)
+                            .addComponent(bDestino)
+                            .addComponent(bBorrar, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bPared))
+                        .addComponent(bGuardar))
+                    .addComponent(bRegresar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(522, Short.MAX_VALUE))
@@ -289,6 +302,10 @@ public class ConstructorMapas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bGuardarActionPerformed
 
+    private void bRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRegresarActionPerformed
+        regresarPrincipal();
+    }//GEN-LAST:event_bRegresarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -333,6 +350,7 @@ public class ConstructorMapas extends javax.swing.JFrame {
     private javax.swing.JToggleButton bDestino;
     private javax.swing.JButton bGuardar;
     private javax.swing.JToggleButton bPared;
+    private javax.swing.JButton bRegresar;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lMensaje;
     // End of variables declaration//GEN-END:variables
@@ -447,6 +465,12 @@ public class ConstructorMapas extends javax.swing.JFrame {
         //return true;
         return ArchivoControlador.guardarArchivo(ruta, res);
 
+    }
+
+    private void regresarPrincipal() {
+        setVisible(false);
+        Principal principal = new Principal();
+        principal.setVisible(true);
     }
 
 }

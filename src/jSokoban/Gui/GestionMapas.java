@@ -71,7 +71,7 @@ public class GestionMapas extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jSokoban/Imagenes/Menu/btnCargarMapa.png"))); // NOI18N
-        jLabel3.setToolTipText("Cargar Mapa");
+        jLabel3.setToolTipText("Importar Mapa a Juego");
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel3MouseClicked(evt);
@@ -100,29 +100,29 @@ public class GestionMapas extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(221, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(271, 271, 271)
+                        .addGap(22, 22, 22)
                         .addComponent(bCrearMapa))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(249, 249, 249)
                         .addComponent(cbMapasDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(271, 271, 271)
+                        .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(bRegresar)
                             .addComponent(jLabel3))))
-                .addContainerGap(153, Short.MAX_VALUE))
+                .addGap(176, 176, 176))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(136, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(168, 168, 168)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbMapasDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
@@ -133,7 +133,7 @@ public class GestionMapas extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addGap(12, 12, 12)
                 .addComponent(bRegresar)
-                .addGap(97, 97, 97))
+                .addContainerGap(213, Short.MAX_VALUE))
         );
 
         pack();
@@ -333,7 +333,7 @@ public class GestionMapas extends javax.swing.JFrame {
         File abre = seleccionadorArchivos.getSelectedFile();
 
         if (abre != null) {
-            if (ArchivoControlador.transferirMapa(abre.getAbsolutePath())) {
+            if (ArchivoControlador.importarMapa(abre.getAbsolutePath())) {
                 cargarListadoMapas();
                 JOptionPane.showMessageDialog(this, "Mapa Cargado Correctamente", "¡A Jugar! - Mapa Cargado", JOptionPane.INFORMATION_MESSAGE);
             } else {

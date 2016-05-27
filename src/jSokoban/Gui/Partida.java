@@ -24,8 +24,7 @@ public class Partida extends javax.swing.JFrame {
 
     public Partida(int nivel) {
         initComponents();
-        setLocationRelativeTo(null);
-        
+                
         board = new Tablero(nivel);
         tab = new TableroControlador(nivel);
         add(board);
@@ -35,6 +34,10 @@ public class Partida extends javax.swing.JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(board.getAnchoTablero() + 35,
                 board.getAltoTablero() + 3 * 35);
+        
+        setLocationRelativeTo(null);
+        
+        setTitle("JSokobanUQ Nivel " + nivel);
 
     }
     
@@ -154,7 +157,7 @@ public class Partida extends javax.swing.JFrame {
     }//GEN-LAST:event_bRehacer2MouseClicked
 
     private void bRehacer3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bRehacer3MouseClicked
-     sol = new Solucionador(tab.matrizToString());
+        sol = new Solucionador(tab.matrizToString());
     }//GEN-LAST:event_bRehacer3MouseClicked
 
     /**
