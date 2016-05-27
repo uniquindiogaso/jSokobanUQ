@@ -45,9 +45,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
+/**
+ * tablero de movimientos, verificaciones y  condiciones
+ * @since 27-01-2016
+ * @author alejo
+ * @author gusta
+ */
+
 public class Tablero extends JPanel {
 
-    //Constantes 
+    //Constantes de movimiento 
     private final int MARGEN = 0;
     public static int TAMANIO_ASSETS = 32;
     private final int COLISION_IZQ = 1;
@@ -69,7 +76,7 @@ public class Tablero extends JPanel {
     private int movimientosTotales;
     private int movimientoActual;
     private int movimientosPuntaje;
-
+    //puntaje total
     private int puntajeTotal;
     //Jugador
     private Avatar avatar;
@@ -92,6 +99,11 @@ public class Tablero extends JPanel {
     private Font fuente;
 
     Partida ventanaJuego;
+    /**
+     * constructor de Tabero
+     * @param nivel
+     * @param ventanaJuego 
+     */
 
     public Tablero(int nivel, Partida ventanaJuego) {
         System.out.println("Tablero => Nivel a Cargar " + nivel);
@@ -101,7 +113,12 @@ public class Tablero extends JPanel {
         iniciarMundo();
         this.ventanaJuego = ventanaJuego;
     }
-
+    
+    /**
+     * contructor sobrescritor de Tablero
+     * @param mapa
+     * @param ventanaPartida 
+     */
     public Tablero(String mapa, Partida ventanaPartida) {
         addKeyListener(new TAdapter());
         setFocusable(true);
@@ -116,14 +133,16 @@ public class Tablero extends JPanel {
     public int getAltoTablero() {
         return this.altoTablero;
     }
-
+    /**
+     * inicia cada mapa con su respectivo tamaño y valores
+     */
     public final void iniciarMundo() {
         //Iniciar Imagenes
         Assets.init();
 
         //Construir Tablero
         tablero = new TableroControlador(nivel);
-
+        //matatriz
         Character[][] matriz = tablero.getMatrizJuego();
 
         //Iniciar Fuente para Programa
@@ -173,7 +192,11 @@ public class Tablero extends JPanel {
         }
 
     }
-
+    
+    /**
+     * metodo sobreesrito de iniciarMundo
+     * @param mapa 
+     */
     public final void iniciarMundo(String mapa) {
         //Iniciar Imagenes
         Assets.init();
@@ -235,7 +258,11 @@ public class Tablero extends JPanel {
         }
 
     }
-
+    
+    /**
+     * contruccion del mundo
+     * @param g 
+     */
     public void construirMundo(Graphics g) {
 
         g.setColor(new Color(101, 159, 62));
@@ -267,7 +294,11 @@ public class Tablero extends JPanel {
 
         }
     }
-
+    
+    /**
+     * pintor de mapas
+     * @param g 
+     */
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -463,6 +494,12 @@ public class Tablero extends JPanel {
 
     }
 
+    /**
+     * verificar colisiones
+     * @param actor
+     * @param tipo
+     * @return 
+     */
     private boolean verificarColisionMuro(Actor actor, int tipo) {
 
         if (tipo == COLISION_IZQ) {
@@ -507,7 +544,13 @@ public class Tablero extends JPanel {
         }
         return false;
     }
-
+     
+    
+    /**
+     * verificador colision con caja
+     * @param type
+     * @return 
+     */
     private boolean verificarColisionCaja(int type) {
 
         //Comprobar Movimiento Anterior
@@ -657,7 +700,7 @@ public class Tablero extends JPanel {
     }
 
     /**
-     * metodo para verificar si hay solucion
+     * metodo para verificar si hay solucion basado en la colision de las cajas
      *
      * @param caja
      */
@@ -723,7 +766,11 @@ public class Tablero extends JPanel {
             }
         }
     }
-
+    
+    
+    /**
+     * metodo que reinicia nivel y limpia variables
+     */
     public void reiniciarNivel() {
 
         movimientoActual = movimientosTotales = 0;
@@ -741,7 +788,7 @@ public class Tablero extends JPanel {
     }
 
     /**
-     * metodo para calcular el puntaje
+     * metodo para calcular el puntaje respecto a la cantidad de movimiento
      */
     private void calcularPuntaje() {
         int tamanoTotal = tablero.getMatrizJuego().length * tablero.getMatrizJuego()[0].length;
@@ -751,6 +798,13 @@ public class Tablero extends JPanel {
         puntajeTotal += puntajeParcial;
     }
 
+    /**
+     * metodo para almacenar los 5 mejores 
+     * puntajes del juego
+     * @param puntaje 
+     */
+    
+    
     private void rankingPuntaje(int puntaje) {
 
         String ruta = System.getProperty("user.dir") + java.io.File.separator + "Puntaje.txt";
@@ -858,6 +912,10 @@ public class Tablero extends JPanel {
             }
         }
     }
+    
+    /**
+     * metodo para ejecutar backtraking en la partida
+     */
 
     public void ejecutarSolucionador() {
         EstadoJuego estadoActual = EstadoJuego.interpretarMapa(tablero.getMatrizJuego());
@@ -866,13 +924,22 @@ public class Tablero extends JPanel {
         s.start();
 
     }
-
+    
+    /**
+     * metodo para el paso de nivel automatico
+     * @param mapa 
+     */
     public void mostrarMundoAutomatico(String mapa) {
         cajas.clear();
         reconstruirMundoBackTracking(mapa);
         repaint();
     }
 
+    
+    /**
+     * reconstruir el mundo para el metodo backtraking
+     * @param mapa 
+     */
     public final void reconstruirMundoBackTracking(String mapa) {
 
         tablero.setMatrizJuego(tablero.toMatriz(mapa));
